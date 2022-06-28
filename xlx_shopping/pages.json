@@ -3,7 +3,24 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "uni-app"
+        "navigationBarTitleText": "开心元素",
+        "navigationBarBackgroundColor":"#fff",
+        "app-plus": {
+          "titleNView": {
+            "buttons": [
+              {
+                "float": "left",
+                "fontSrc":"./static/icomoon.ttf",
+                "text": "\ue986"
+              },
+              {
+                "float": "right",
+                "fontSrc":"./static/icomoon.ttf",
+                "text": "\ue900"
+              }
+            ]
+          }
+        }
       }
     }, {
       "path": "pages/list/list",
