@@ -10,12 +10,19 @@
 			<view class="icon-message"></view>
 		</view>
 		<!-- #endif -->
+		<!-- 轮播图 -->
 		<indexSwiper></indexSwiper>
+		<!-- 推荐 -->
+		<Recommed></Recommed>
+		<!-- 楼层 -->
+		<Card></Card>
 	</view>
 </template>
 
 <script>
 import indexSwiper from '@/components/index/indexSwiper';
+import Recommed from '@/components/index/Recommed.vue';
+import Card from '@/components/index/Card.vue'
 export default {
 	data() {
 		return {
@@ -23,7 +30,9 @@ export default {
 		};
 	},
 	components: {
-		indexSwiper
+		indexSwiper,
+		Recommed,
+		Card
 	},
 	onLoad() {},
 	methods: {}

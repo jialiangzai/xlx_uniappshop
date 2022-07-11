@@ -13,7 +13,7 @@
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item" >
-					<img class="swiper-img" src="../../static/img/swiper01.jpg" alt="">
+					<img class="swiper-img" src="../../static/img/swiper02.jpg" alt="">
 				</view>
 			</swiper-item>
 		</swiper>
