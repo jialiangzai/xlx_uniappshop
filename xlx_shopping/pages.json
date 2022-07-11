@@ -5,6 +5,7 @@
       "style": {
         "navigationBarTitleText": "开心元素",
         "navigationBarBackgroundColor":"#fff",
+		// "navigationStyle":"custom",
         "app-plus": {
           "titleNView": {
             "buttons": [

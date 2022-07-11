@@ -1,0 +1,14 @@
+
+.wx-nav{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 200rpx;
+	line-height: 200rpx;
+	text-align: center;
+}
+.textTitle{
+	margin: 0 20px;
+}
+
