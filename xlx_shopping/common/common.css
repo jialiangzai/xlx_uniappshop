@@ -13,3 +13,9 @@
   -webkit-appearance: none;
   background: transparent;
 }
+.scroll-item{
+  display:inline-block
+}
+.scroll-box {
+  white-space: nowrap
+}

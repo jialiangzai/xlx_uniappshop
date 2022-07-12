@@ -10,12 +10,24 @@
 			<view class="icon-message"></view>
 		</view>
 		<!-- #endif -->
+    <scroll-view scroll-x="true" class="scroll-box" :scroll-into-view="scrollIndex">
+      <view v-for="(item,index) in topBar" :key="index" class="scroll-item" @tap="changeTap(index)" :id="'top'+index">
+        
+        <text :class="activeTop===index?'f-active-color':''">{{item.name}}</text>
+      </view>
+    </scroll-view>
+    <!-- swiper -->
+    <swiper @change=changeSwiper :current="activeTop">
+      <swiper-item v-for="(item,index) in topBar" :key="index" >
+        <view>{{item.name}}</view>
+      </swiper-item>
+    </swiper>
     <!-- 推荐模板 -->
 		<!-- 轮播图 -->
 		<!-- <indexSwiper></indexSwiper> -->
 		<!-- 推荐 -->
 		<!-- <Recommed></Recommed> -->
-		<!-- 楼层 -->
+		<!-- 楼层 --> 
 		<!-- <Card cardTitle="猜你喜欢"></Card> -->
 		<!-- 商品列表卡片 -->
 		<!-- <commodityList></commodityList> -->
@@ -26,14 +38,14 @@
     
     
     <!-- 其他模板 -->
-		<Banner></Banner>
-		<Icons></Icons>
+		<!-- <Banner></Banner> -->
+		<!-- <Icons></Icons> -->
 		<!-- 热销商品 -->
-		<Card cardTitle="热销商品"></Card>
-		<Hot></Hot>
+		<!-- <Card cardTitle="热销商品"></Card> -->
+		<!-- <Hot></Hot> -->
 		<!-- 推荐店铺 -->
-		<Card cardTitle="推荐店铺"></Card>
-		<Shop></Shop>
+		<!-- <Card cardTitle="推荐店铺"></Card> -->
+		<!-- <Shop></Shop> -->
 	</view>
 </template>
 
@@ -49,7 +61,33 @@ import Shop from '@/components/index/Shop.vue'
 export default {
 	data() {
 		return {
-			title: 'Hello'
+      activeTop:0,
+      // 顶栏跟随swiper
+      scrollIndex:'top0',
+			title: 'Hello',
+      topBar:[
+        {
+          name:'推荐'
+        },
+        {
+          name:'运动户外'
+        },
+        {
+          name:'服饰内衣'
+        },
+        {
+          name:'鞋靴箱包'
+        },
+        {
+          name:'美妆个护'
+        },
+        {
+          name:'家具数码'
+        },
+        {
+          name:'食品母婴'
+        }
+      ]
 		};
 	},
 	components: {
@@ -63,7 +101,19 @@ export default {
 		Shop
 	},
 	onLoad() {},
-	methods: {}
+	methods: {
+    changeTap(n){
+      if(this.activeTop===n){
+        return
+      }
+      this.activeTop=n
+      this.scrollIndex = 'top'+n
+    },
+    changeSwiper(e){
+      let nn = e.detail.current
+      this.changeTap(nn)
+    }
+  }
 };
 </script>
 
@@ -79,5 +129,19 @@ export default {
 }
 .textTitle {
 	margin: 0 20px;
+}
+.scroll-box{
+width: 100%;
+height:80rpx
+}
+.scroll-item {
+  display:inline-block;
+  padding:10rpx 30rpx ;
+  font-size: 32rpx;
+}
+.f-active-color {
+  padding: 10rpx 0;
+  color: #49bdfb;
+  border-bottom: 6rpx solid #49bdfb;
 }
 </style>
