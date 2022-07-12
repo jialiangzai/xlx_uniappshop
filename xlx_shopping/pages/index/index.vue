@@ -10,6 +10,7 @@
 			<view class="icon-message"></view>
 		</view>
 		<!-- #endif -->
+    <!-- 推荐模板 -->
 		<!-- 轮播图 -->
 		<!-- <indexSwiper></indexSwiper> -->
 		<!-- 推荐 -->
@@ -18,6 +19,13 @@
 		<!-- <Card cardTitle="猜你喜欢"></Card> -->
 		<!-- 商品列表卡片 -->
 		<!-- <commodityList></commodityList> -->
+    
+    
+    
+    
+    
+    
+    <!-- 其他模板 -->
 		<Banner></Banner>
 		<Icons></Icons>
 		<!-- 热销商品 -->
