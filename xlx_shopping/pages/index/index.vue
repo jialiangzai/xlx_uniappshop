@@ -11,15 +11,15 @@
 		</view>
 		<!-- #endif -->
 		<!-- 轮播图 -->
-		<indexSwiper></indexSwiper>
+		<!-- <indexSwiper></indexSwiper> -->
 		<!-- 推荐 -->
-		<Recommed></Recommed>
+		<!-- <Recommed></Recommed> -->
 		<!-- 楼层 -->
-		<Card cardTitle="猜你喜欢"></Card>
-<!-- 		<Card cardTitle="运动户外"></Card>
-		<Card cardTitle="商品店铺"></Card> -->
+		<!-- <Card cardTitle="猜你喜欢"></Card> -->
 		<!-- 商品列表卡片 -->
-		<commodityList></commodityList>
+		<!-- <commodityList></commodityList> -->
+		<Banner></Banner>
+		<Icons></Icons>
 	</view>
 </template>
 
@@ -28,6 +28,8 @@ import indexSwiper from '@/components/index/indexSwiper';
 import Recommed from '@/components/index/Recommed.vue';
 import Card from '@/components/index/Card.vue'
 import commodityList from '@/components/common/commodityList.vue'
+import Banner from '@/components/index/Banner.vue'
+import Icons from '@/components/index/Icons.vue'
 export default {
 	data() {
 		return {
@@ -38,7 +40,9 @@ export default {
 		indexSwiper,
 		Recommed,
 		Card,
-		commodityList
+		commodityList,
+		Banner,
+		Icons
 	},
 	onLoad() {},
 	methods: {}
