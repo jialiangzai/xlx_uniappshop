@@ -15,7 +15,11 @@
 		<!-- 推荐 -->
 		<Recommed></Recommed>
 		<!-- 楼层 -->
-		<Card></Card>
+		<Card cardTitle="猜你喜欢"></Card>
+<!-- 		<Card cardTitle="运动户外"></Card>
+		<Card cardTitle="商品店铺"></Card> -->
+		<!-- 商品列表卡片 -->
+		<commodityList></commodityList>
 	</view>
 </template>
 
@@ -23,6 +27,7 @@
 import indexSwiper from '@/components/index/indexSwiper';
 import Recommed from '@/components/index/Recommed.vue';
 import Card from '@/components/index/Card.vue'
+import commodityList from '@/components/common/commodityList.vue'
 export default {
 	data() {
 		return {
@@ -32,7 +37,8 @@ export default {
 	components: {
 		indexSwiper,
 		Recommed,
-		Card
+		Card,
+		commodityList
 	},
 	onLoad() {},
 	methods: {}

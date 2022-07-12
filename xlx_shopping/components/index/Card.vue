@@ -1,16 +1,15 @@
 <template>
 	<view class="Card">
 		<view>
-			
+			-
 		</view>
 		<slot>
-			
-		</slot>
 		<view class="card-name">
-			猜你喜欢
+			{{cardTitle}}
 		</view>
+		</slot>
 		<view>
-			
+			-
 		</view>
 	</view>
 </template>
