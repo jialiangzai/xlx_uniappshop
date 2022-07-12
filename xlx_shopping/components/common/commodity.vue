@@ -1,8 +1,8 @@
 <template>
 	<view class="commodity">
 		<!-- 单个商品组件 -->
-		<view class="commodity-item" v-for="(item,index) in dataList" :key="item.id">
-			<img :src="item.imgUrl" alt="">					
+		<view class="commodity-item" v-for="(item,index) in dataList" :key="item.id" :style="'width:'+itemWidth+';'">
+			<img :src="item.imgUrl" alt="" :style="'height:'+itemHeigth+';'">					
 			<view class="commodity-content">
 				<text class="commodity-name">{{item.name}}</text>
 				<view class="">
@@ -28,6 +28,14 @@
 				type: Array,
 				default: ()=>([])
 			},
+			itemWidth:{
+				type:String,
+				default:"375rpx"
+			},
+			itemHeigth:{
+				type:String,
+				default:"375rpx"
+			}
 		},
 	}
 </script>
@@ -43,7 +51,6 @@
 	}
 	img{
 		width: 100%;
-		height: 375rpx;
 	}
 	.commodity-content{
 		text-align: center;

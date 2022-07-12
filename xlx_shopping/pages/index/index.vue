@@ -20,6 +20,9 @@
 		<!-- <commodityList></commodityList> -->
 		<Banner></Banner>
 		<Icons></Icons>
+		<!-- 热销商品 -->
+		<Card cardTitle="热销商品"></Card>
+		<Hot></Hot>
 	</view>
 </template>
 
@@ -30,6 +33,7 @@ import Card from '@/components/index/Card.vue'
 import commodityList from '@/components/common/commodityList.vue'
 import Banner from '@/components/index/Banner.vue'
 import Icons from '@/components/index/Icons.vue'
+import Hot from '@/components/index/Hot.vue'
 export default {
 	data() {
 		return {
@@ -42,7 +46,8 @@ export default {
 		Card,
 		commodityList,
 		Banner,
-		Icons
+		Icons,
+		Hot
 	},
 	onLoad() {},
 	methods: {}
