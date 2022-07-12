@@ -4,7 +4,7 @@
 		<view class="commodity-item" v-for="(item,index) in dataList" :key="item.id" :style="'width:'+itemWidth+';'">
 			<img :src="item.imgUrl" alt="" :style="'height:'+itemHeigth+';'">					
 			<view class="commodity-content">
-				<text class="commodity-name" style="'font-size:'+ nameSize +';'">{{item.name}}</text>
+				<text class="commodity-name" :style="'font-size:'+ nameSize +';'">{{item.name}}</text>
 				<view class="">
 					<text class="pprice">￥{{item.pprice}}</text>
 					<text class="oprice">￥{{item.oprice}}</text>
