@@ -1,10 +1,10 @@
 <template>
-	<view class="commodity">
+	<view class="commodity" style="'flex-wrap:'+wrap+';'">
 		<!-- 单个商品组件 -->
 		<view class="commodity-item" v-for="(item,index) in dataList" :key="item.id" :style="'width:'+itemWidth+';'">
 			<img :src="item.imgUrl" alt="" :style="'height:'+itemHeigth+';'">					
 			<view class="commodity-content">
-				<text class="commodity-name">{{item.name}}</text>
+				<text class="commodity-name" style="'font-size:'+ nameSize +';'">{{item.name}}</text>
 				<view class="">
 					<text class="pprice">￥{{item.pprice}}</text>
 					<text class="oprice">￥{{item.oprice}}</text>
@@ -35,6 +35,14 @@
 			itemHeigth:{
 				type:String,
 				default:"375rpx"
+			},
+			wrap:{
+				typr:String,
+				default:'wrap'
+			},
+			nameSize:{
+				typr:String,
+				default:'24rpx'
 			}
 		},
 	}
@@ -43,7 +51,6 @@
 <style scoped>
 	.commodity{
 		display: flex;
-		flex-wrap: wrap;
 	}
 	.commodity-item{
 		width: 375rpx;
@@ -66,7 +73,7 @@
 	}
 	.oprice{
 		text-decoration: line-through;
-		font-size: 24rpx;
+		
 		color: #999;
 	}
 	.discount{
