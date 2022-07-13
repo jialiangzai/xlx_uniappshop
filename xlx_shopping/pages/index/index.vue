@@ -19,18 +19,29 @@
     <!-- swiper -->
     <swiper @change=changeSwiper :current="activeTop">
       <swiper-item v-for="(item,index) in topBar" :key="index" >
-        <view>{{item.name}}</view>
+        <!-- <view>{{item.name}}</view> -->
+        <view class="home-data" :style="'height:'+clentHeight+'px;'">
+      <!-- 其他模板 -->
+      <Banner></Banner>
+      <Icons></Icons>
+      <!-- 热销商品 -->
+      <Card cardTitle="热销商品"></Card>
+      <Hot></Hot>
+      <!-- 推荐店铺 -->
+      <Card cardTitle="推荐店铺"></Card>
+      <Shop></Shop>
+        </view>
       </swiper-item>
     </swiper>
     <!-- 推荐模板 -->
 		<!-- 轮播图 -->
-		<!-- <indexSwiper></indexSwiper> -->
+	<!-- 	<indexSwiper></indexSwiper> -->
 		<!-- 推荐 -->
 		<!-- <Recommed></Recommed> -->
 		<!-- 楼层 --> 
-		<!-- <Card cardTitle="猜你喜欢"></Card> -->
+	<!-- 	<Card cardTitle="猜你喜欢"></Card> -->
 		<!-- 商品列表卡片 -->
-		<!-- <commodityList></commodityList> -->
+	<!-- 	<commodityList></commodityList> -->
     
     
     
@@ -61,6 +72,8 @@ import Shop from '@/components/index/Shop.vue'
 export default {
 	data() {
 		return {
+      // 内容高度
+      clentHeight:0,
       activeTop:0,
       // 顶栏跟随swiper
       scrollIndex:'top0',
@@ -101,6 +114,16 @@ export default {
 		Shop
 	},
 	onLoad() {},
+  onReady() {
+   let view = uni.createSelectorQuery().select(".home-data")
+   // console.log(view);
+   view.boundingClientRect(data => {
+     console.log("得到布局位置信息" + JSON.stringify(data));
+     console.log("高度" + data.height);
+     // bug 无单位
+     this.clentHeight = data.height
+   }).exec();
+  },
 	methods: {
     changeTap(n){
       if(this.activeTop===n){
