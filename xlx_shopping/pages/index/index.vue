@@ -17,10 +17,10 @@
       </view>
     </scroll-view>
     <!-- swiper -->
-    <swiper @change=changeSwiper :current="activeTop">
+    <swiper @change=changeSwiper :current="activeTop" :style="'height:'+clentHeight+'px;'">
       <swiper-item v-for="(item,index) in topBar" :key="index" >
         <!-- <view>{{item.name}}</view> -->
-        <view class="home-data" :style="'height:'+clentHeight+'px;'">
+        <view class="home-data" >
       <!-- 其他模板 -->
       <Banner></Banner>
       <Icons></Icons>
@@ -164,7 +164,7 @@ height:80rpx
 }
 .f-active-color {
   padding: 10rpx 0;
-  color: #49bdfb;
-  border-bottom: 6rpx solid #49bdfb;
+  color: red;
+  border-bottom: 6rpx solid red;
 }
 </style>
