@@ -113,7 +113,14 @@ export default {
 		Hot,
 		Shop
 	},
-	onLoad() {},
+	onLoad() {
+    uni.request({
+      url:'http://192.168.0.151:3000/api/index_list/data',
+      success: (res) => {
+        console.log(res);
+      }
+    })
+  },
   onReady() {
    let view = uni.createSelectorQuery().select(".home-data")
    // console.log(view);
