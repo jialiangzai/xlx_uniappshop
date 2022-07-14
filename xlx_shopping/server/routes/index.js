@@ -24,28 +24,28 @@ router.get("/api/index_list/data",function(req,res,next){
 				{
 					type:"swiperList",
 					data:[
-						{imgUrl:'../../static/img/swiper1.jpg'},
-						{imgUrl:'../../static/img/swiper2.jpg'},
-						{imgUrl:'../../static/img/swiper3.jpg'}
+						{imgUrl:'../../static/img/swiper00.jpg'},
+						{imgUrl:'../../static/img/swiper01.jpg'},
+						{imgUrl:'../../static/img/swiper02.jpg'}
 					]
 				},
 				{
 					type:"recommendList",
 					data:[
 						{
-							bigUrl:"../../static/img/Children.jpg",
+							bigUrl:"../../static/img/body.jpg",
 							data:[
-								{imgUrl:"../../static/img/Children1.jpg"},
-								{imgUrl:"../../static/img/Children2.jpg"},
-								{imgUrl:"../../static/img/Children3.jpg"}
+								{imgUrl:"../../static/img/maoyi.jpg"},
+								{imgUrl:"../../static/img/sahngyi.jpg"},
+								{imgUrl:"../../static/img/qunzi.jpg"}
 							]
 						},
 						{
-							bigUrl:"../../static/img/Furnishing.jpg",
+							bigUrl:"../../static/img/run.jpg",
 							data:[
-								{imgUrl:"../../static/img/Furnishing1.jpg"},
-								{imgUrl:"../../static/img/Furnishing2.jpg"},
-								{imgUrl:"../../static/img/Furnishing3.jpg"}
+								{imgUrl:"../../static/img/beizi.jpg"},
+								{imgUrl:"../../static/img/zhentou.jpg"},
+								{imgUrl:"../../static/img/xiezi.jpg"}
 							]
 						}
 					]
@@ -55,7 +55,7 @@ router.get("/api/index_list/data",function(req,res,next){
 					data:[
 						{
 							id:1,
-							imgUrl:"../../static/img/commodity1.jpg",
+							imgUrl:"../../static/img/commodity (1).jpg",
 							name:"大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
 							pprice:"299",
 							oprice:"659",
@@ -63,7 +63,7 @@ router.get("/api/index_list/data",function(req,res,next){
 						},
 						{
 							id:2,
-							imgUrl:"../../static/img/commodity2.jpg",
+							imgUrl:"../../static/img/commodity (1).jpg",
 							name:"大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
 							pprice:"299",
 							oprice:"659",
@@ -71,7 +71,7 @@ router.get("/api/index_list/data",function(req,res,next){
 						},
 						{
 							id:3,
-							imgUrl:"../../static/img/commodity3.jpg",
+							imgUrl:"../../static/img/commodity (1).jpg",
 							name:"大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
 							pprice:"299",
 							oprice:"659",
@@ -79,7 +79,7 @@ router.get("/api/index_list/data",function(req,res,next){
 						},
 						{
 							id:4,
-							imgUrl:"../../static/img/commodity4.jpg",
+							imgUrl:"../../static/img/commodity (1).jpg",
 							name:"大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
 							pprice:"299",
 							oprice:"659",

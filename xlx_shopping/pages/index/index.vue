@@ -18,7 +18,7 @@
     </scroll-view>
     <!-- swiper -->
     <swiper @change=changeSwiper :current="activeTop" :style="'height:'+clentHeight+'px;'">
-      <swiper-item v-for="(item,index) in topBar" :key="index" >
+      <swiper-item v-for="(item,index) in newTopBar" :key="index" >
         <!-- <view>{{item.name}}</view> -->
         <view class="home-data" >
       <!-- 其他模板 -->
@@ -30,13 +30,22 @@
       <!-- 推荐店铺 -->
       <!-- <Card cardTitle="推荐店铺"></Card> -->
       <!-- <Shop></Shop> -->
-	  <indexSwiper></indexSwiper>
-	  <!-- 推荐 -->
-	  <Recommed></Recommed>
-	  <!-- 楼层 --> 
+      <!-- 考虑到item遍历 -->
+    <block v-for="(k,i) in item.data" :key="i">
+	  <indexSwiper v-if="k.type=='swiperList'" :dataList="k.data"></indexSwiper>
+	 
+    <!-- card组件显示异常必须如下 -->
+    <template v-if="k.type=='recommendList'">
+      <view>
+        <!-- 推荐 -->
+        <Recommed  :dataList="k.data"></Recommed>
 	  <Card cardTitle="猜你喜欢"></Card>
+      </view>
+    </template>
+	  <!-- 楼层 --> 
 	  <!-- 商品列表卡片 -->
-	  <commodityList></commodityList>
+	  <commodityList v-if="k.type=='commodityList'" :dataList="k.data"></commodityList>
+    </block>
         </view>
       </swiper-item>
     </swiper>
@@ -119,19 +128,21 @@ export default {
 				if (i==0) {
 					obj.data = data.data
 				} 	
+        arr.push(obj)
 			}
 			return arr
 		},
 		// 初始化内容
 	initHome(){
 		uni.request({
-		  url:'http://172.16.6.184:8088/api/index_list/data',
+		  // url:'http://172.16.6.184:8088/api/index_list/data',
+		  url:'http://192.168.0.151:8088/api/index_list/data',
 		  success: (res) => {
 		    // console.log(res);
 			let  data = res.data.data
 			console.log(data.topBar);
 			this.topBar = data.topBar
-			// 承载新的topbar
+			// 承载新的
 			this.newTopBar = this.initHomeBotom(data)
 			
 		  }

@@ -1,31 +1,26 @@
 <template>
-	<view class="recommed bg">
-		<view class="recommed-item">
+	<view class="recommed bg" v-if="dataList">
+		<view class="recommed-item" v-for="(m,i) in dataList" :key="i">
 			<!-- 大图 -->
-			<img class="bigBox" src="../../static/img/body.jpg" alt="">
+			<img class="bigBox" :src="m.bigUrl" alt="">
 			<!-- 小图 -->
-			<view class="smallBox">
-				<img class="item-img" src="../../static/img/maoyi.jpg" alt="">
-				<img class="item-img" src="../../static/img/sahngyi.jpg" alt="">
-				<img class="item-img" src="../../static/img/qunzi.jpg" alt="">
+			<view class="smallBox" >
+        <block v-for="(n,d) in m.data" :key="d">
+				<img class="item-img" :src="n.imgUrl" alt="">
+        </block>
 			</view>
-		</view>
-		
-		<view class="recommed-item">
-			<!-- 大图 -->
-			<img class="bigBox" src="../../static/img/run.jpg" alt="">
-			<!-- 小图 -->
-			<view class="smallBox">
-				<img class="item-img" src="../../static/img/beizi.jpg" alt="">
-				<img class="item-img" src="../../static/img/zhentou.jpg" alt="">
-				<img class="item-img" src="../../static/img/xiezi.jpg" alt="">
-			</view>
-		</view>
-		
+		</view>		
 	</view>
 </template>
 
 <script>
+  export default {
+    props: {
+      dataList: {
+        type: Array,
+      },
+    },
+  }
 </script>
 
 <style scoped>

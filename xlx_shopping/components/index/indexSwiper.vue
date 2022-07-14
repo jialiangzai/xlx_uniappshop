@@ -1,19 +1,9 @@
 <template>
-	<view class="swiperBox">
+	<view class="swiperBox" v-if="dataList">
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-			<swiper-item>
+			<swiper-item v-for="(m,i) in dataList" :key="i">
 				<view class="swiper-item" >
-					<img class="swiper-img" src="../../static/img/swiper00.jpg" alt="">
-				</view>
-			</swiper-item>
-			<swiper-item>
-				<view class="swiper-item" >
-					<img class="swiper-img" src="../../static/img/swiper01.jpg" alt="">
-				</view>
-			</swiper-item>
-			<swiper-item>
-				<view class="swiper-item" >
-					<img class="swiper-img" src="../../static/img/swiper02.jpg" alt="">
+					<img class="swiper-img" :src="m.imgUrl" alt="">
 				</view>
 			</swiper-item>
 		</swiper>
@@ -23,6 +13,11 @@
 <script>
 	export default {
 		name:"index",
+    props: {
+      dataList: {
+        type: Array,
+      },
+    },
 		data() {
 			return {
 				
