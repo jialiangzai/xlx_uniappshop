@@ -100,8 +100,9 @@ export default {
    view.boundingClientRect(data => {
      console.log("得到布局位置信息" + JSON.stringify(data));
      console.log("高度" + data.height);
-     // bug 无单位
-     this.clentHeight = data.height
+     // bug 无单位------因为数据异步导致组件渲染问题暂时写死
+     this.clentHeight = 1000
+     // this.clentHeight = data.height
    }).exec();
   },
 	methods: {
