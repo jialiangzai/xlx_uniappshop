@@ -1,5 +1,5 @@
 <template>
-	<view class="commodity" style="'flex-wrap:'+wrap+';'">
+	<view class="commodity" :style="'flex-wrap:'+wrap+';'">
 		<!-- 单个商品组件 -->
 		<view class="commodity-item" v-for="(item,index) in dataList" :key="item.id" :style="'width:'+itemWidth+';'">
 			<img :src="item.imgUrl" alt="" :style="'height:'+itemHeigth+';'">					

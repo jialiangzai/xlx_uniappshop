@@ -22,26 +22,27 @@
         <!-- <view>{{item.name}}</view> -->
         <view class="home-data" >
       <!-- 其他模板 -->
-      <Banner></Banner>
-      <Icons></Icons>
+      <!-- <Banner></Banner> -->
+      <!-- <Icons></Icons> -->
       <!-- 热销商品 -->
-      <Card cardTitle="热销商品"></Card>
-      <Hot></Hot>
+      <!-- <Card cardTitle="热销商品"></Card> -->
+      <!-- <Hot></Hot> -->
       <!-- 推荐店铺 -->
-      <Card cardTitle="推荐店铺"></Card>
-      <Shop></Shop>
+      <!-- <Card cardTitle="推荐店铺"></Card> -->
+      <!-- <Shop></Shop> -->
+	  <indexSwiper></indexSwiper>
+	  <!-- 推荐 -->
+	  <Recommed></Recommed>
+	  <!-- 楼层 --> 
+	  <Card cardTitle="猜你喜欢"></Card>
+	  <!-- 商品列表卡片 -->
+	  <commodityList></commodityList>
         </view>
       </swiper-item>
     </swiper>
     <!-- 推荐模板 -->
 		<!-- 轮播图 -->
-	<!-- 	<indexSwiper></indexSwiper> -->
-		<!-- 推荐 -->
-		<!-- <Recommed></Recommed> -->
-		<!-- 楼层 --> 
-	<!-- 	<Card cardTitle="猜你喜欢"></Card> -->
-		<!-- 商品列表卡片 -->
-	<!-- 	<commodityList></commodityList> -->
+		
     
     
     
@@ -98,8 +99,8 @@ export default {
    let view = uni.createSelectorQuery().select(".home-data")
    // console.log(view);
    view.boundingClientRect(data => {
-     console.log("得到布局位置信息" + JSON.stringify(data));
-     console.log("高度" + data.height);
+     // console.log("得到布局位置信息" + JSON.stringify(data));
+     // console.log("高度" + data.height);
      // bug 无单位------因为数据异步导致组件渲染问题暂时写死
      this.clentHeight = 1000
      // this.clentHeight = data.height

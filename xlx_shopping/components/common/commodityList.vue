@@ -1,7 +1,7 @@
 <template>
 	<view class="commodityList">
 		商品列表
-		<commodity :dataList="commodityList"></commodity>
+		<commodity :dataList="commodityList" ></commodity>
 	</view>
 </template>
 
