@@ -78,29 +78,7 @@ export default {
       // 顶栏跟随swiper
       scrollIndex:'top0',
 			title: 'Hello',
-      topBar:[
-        {
-          name:'推荐'
-        },
-        {
-          name:'运动户外'
-        },
-        {
-          name:'服饰内衣'
-        },
-        {
-          name:'鞋靴箱包'
-        },
-        {
-          name:'美妆个护'
-        },
-        {
-          name:'家具数码'
-        },
-        {
-          name:'食品母婴'
-        }
-      ]
+      topBar:[]
 		};
 	},
 	components: {
@@ -114,12 +92,7 @@ export default {
 		Shop
 	},
 	onLoad() {
-    uni.request({
-      url:'http://192.168.0.151:3000/api/index_list/data',
-      success: (res) => {
-        console.log(res);
-      }
-    })
+		this.initHome()
   },
   onReady() {
    let view = uni.createSelectorQuery().select(".home-data")
@@ -132,6 +105,17 @@ export default {
    }).exec();
   },
 	methods: {
+	initHome(){
+		uni.request({
+		  url:'http://172.16.6.184:8088/api/index_list/data',
+		  success: (res) => {
+		    // console.log(res);
+			let  data = res.data.data
+			console.log(data.topBar);
+			this.topBar = data.topBar
+		  }
+		})
+	},
     changeTap(n){
       if(this.activeTop===n){
         return
