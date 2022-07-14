@@ -79,7 +79,8 @@ export default {
       // 顶栏跟随swiper
       scrollIndex:'top0',
 			title: 'Hello',
-      topBar:[]
+      topBar:[],
+	  newTopBar:[]
 		};
 	},
 	components: {
@@ -107,6 +108,21 @@ export default {
    }).exec();
   },
 	methods: {
+		// topbar承载
+		initHomeBotom(data){
+			let arr=[]
+			console.log(this.topBar.length);
+			for (let i  = 0 ;i<this.topBar.length;i++) {
+				let obj = {
+					data:[]
+				}
+				if (i==0) {
+					obj.data = data.data
+				} 	
+			}
+			return arr
+		},
+		// 初始化内容
 	initHome(){
 		uni.request({
 		  url:'http://172.16.6.184:8088/api/index_list/data',
@@ -115,6 +131,9 @@ export default {
 			let  data = res.data.data
 			console.log(data.topBar);
 			this.topBar = data.topBar
+			// 承载新的topbar
+			this.newTopBar = this.initHomeBotom(data)
+			
 		  }
 		})
 	},
