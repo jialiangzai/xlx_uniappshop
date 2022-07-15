@@ -20,7 +20,7 @@
     <swiper @change=changeSwiper :current="activeTop" :style="'height:'+clentHeight+'px;'">
       <swiper-item v-for="(item,index) in newTopBar" :key="index" >
         <!-- <view>{{item.name}}</view> -->
-        <view class="home-data" >
+        <!-- <view class="home-data" > -->
       <!-- 其他模板 -->
       <!-- <Banner></Banner> -->
       <!-- <Icons></Icons> -->
@@ -30,7 +30,10 @@
       <!-- 推荐店铺 -->
       <!-- <Card cardTitle="推荐店铺"></Card> -->
       <!-- <Shop></Shop> -->
+	  <!-- 自定组件高度获取 触底-->
+	  <scroll-view scroll-y="true" :style="'height:'+clentHeight+'px;'">
       <!-- 考虑到item遍历 -->
+	  <block v-if="item.data.length>0">
     <block v-for="(k,i) in item.data" :key="i">
 	  <indexSwiper v-if="k.type=='swiperList'" :dataList="k.data"></indexSwiper>
 	 
@@ -46,7 +49,12 @@
 	  <!-- 商品列表卡片 -->
 	  <commodityList v-if="k.type=='commodityList'" :dataList="k.data"></commodityList>
     </block>
-        </view>
+	</block>
+	<block v-else>
+		暂无数据
+	</block>
+	</scroll-view>
+        <!-- </view> -->
       </swiper-item>
     </swiper>
     <!-- 推荐模板 -->
@@ -106,15 +114,21 @@ export default {
 		this.initHome()
   },
   onReady() {
-   let view = uni.createSelectorQuery().select(".home-data")
-   // console.log(view);
-   view.boundingClientRect(data => {
-     // console.log("得到布局位置信息" + JSON.stringify(data));
-     // console.log("高度" + data.height);
-     // bug 无单位------因为数据异步导致组件渲染问题暂时写死
-     this.clentHeight = 1000
-     // this.clentHeight = data.height
-   }).exec();
+	  uni.getSystemInfo({
+		  success:(res)=>{
+			  console.log(res);
+			  this.clentHeight  =res.windowHeight - uni.upx2px(80)-this.getClientHeight()
+		  }
+	  })
+   // let view = uni.createSelectorQuery().select(".home-data")
+   // // console.log(view);
+   // view.boundingClientRect(data => {
+   //   // console.log("得到布局位置信息" + JSON.stringify(data));
+   //   // console.log("高度" + data.height);
+   //   // bug 无单位------因为数据异步导致组件渲染问题暂时写死
+   //   this.clentHeight = 1000
+   //   // this.clentHeight = data.height
+   // }).exec();
   },
 	methods: {
 		// topbar承载
@@ -135,8 +149,8 @@ export default {
 		// 初始化内容
 	initHome(){
 		uni.request({
-		  // url:'http://172.16.6.184:8088/api/index_list/data',
-		  url:'http://192.168.0.151:8088/api/index_list/data',
+		  url:'http://172.16.6.184:8088/api/index_list/data',
+		  // url:'http://192.168.0.151:8088/api/index_list/data',
 		  success: (res) => {
 		    // console.log(res);
 			let  data = res.data.data
@@ -158,7 +172,20 @@ export default {
     changeSwiper(e){
       let nn = e.detail.current
       this.changeTap(nn)
-    }
+    },
+	// 兼容可视区高度
+	getClientHeight(){
+		let res = uni.getSystemInfoSync()
+		console.log(res.platform);
+		const system = res.platform
+		if(system ==='ios'){
+			return 44+res.statusBarHeight
+		}else if(system ==='android'){
+			return 48+res.statusBarHeight
+		}else{
+			return 0
+		}
+	}
   }
 };
 </script>
@@ -190,4 +217,7 @@ height:80rpx
   color: red;
   border-bottom: 6rpx solid red;
 }
+/* .index{
+	background-color: pink;
+} */
 </style>
