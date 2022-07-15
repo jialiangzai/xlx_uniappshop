@@ -1,43 +1,20 @@
 <template>
-	<view class="icons">
-		<view class="icons-item">
-			<img class="icons-img" src="../../static/img/icon (7).jpg" alt="">
-			<text class="icons-name">运动户外</text>
-		</view>
-		<view class="icons-item">
-			<img class="icons-img" src="../../static/img/icon (8).jpg" alt="">
-			<text class="icons-name">运动户外</text>
-		</view>
-		<view class="icons-item">
-			<img class="icons-img" src="../../static/img/icon (1).jpg" alt="">
-			<text class="icons-name">运动户外</text>
-		</view>
-		<view class="icons-item">
-			<img class="icons-img" src="../../static/img/icon (4).jpg" alt="">
-			<text class="icons-name">运动户外</text>
-		</view>
-		<view class="icons-item">
-			<img class="icons-img" src="../../static/img/icon (5).jpg" alt="">
-			<text class="icons-name">运动户外</text>
-		</view>
-		<view class="icons-item">
-			<img class="icons-img" src="../../static/img/icon (6).jpg" alt="">
-			<text class="icons-name">运动户外</text>
-		</view>
-		<view class="icons-item">
-			<img class="icons-img" src="../../static/img/icon (3).jpg" alt="">
-			<text class="icons-name">运动户外</text>
-		</view>
-		<view class="icons-item">
-			<img class="icons-img" src="../../static/img/icon (2).jpg" alt="">
-			<text class="icons-name">运动户外</text>
+	<view class="icons" v-if="dataList">
+		<view class="icons-item" v-for="(t,n) in dataList" :key="n">
+			<img class="icons-img" :src="t.imgUrl" alt="">
+			<text class="icons-name">{{t.name}}</text>
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		
+		props: {
+			dataList: {
+				type: Array,
+				default: ()=>([])
+			},
+		},
 	}
 </script>
 

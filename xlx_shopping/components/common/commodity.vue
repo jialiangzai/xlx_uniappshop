@@ -2,7 +2,7 @@
 	<view class="commodity" :style="'flex-wrap:'+wrap+';'">
 		<!-- 单个商品组件 -->
 		<view class="commodity-item" v-for="(item,index) in dataList" :key="item.id" :style="'width:'+itemWidth+';'">
-			<img :src="item.imgUrl" alt="" :style="'height:'+itemHeigth+';'">					
+			<img :src="item.imgUrl" alt="" :style="'height:'+itemHeigth+';'">
 			<view class="commodity-content">
 				<text class="commodity-name" :style="'font-size:'+ nameSize +';'">{{item.name}}</text>
 				<view class="">
@@ -12,7 +12,7 @@
 				<text class="discount">{{item.discount}}折</text>
 			</view>
 		</view>
-		
+
 	</view>
 </template>
 
@@ -25,44 +25,48 @@
 		},
 		props: {
 			dataList: {
-				type: Array,
-				default: ()=>([])
+				// type: Array,
+				// default: () => ([])
 			},
-			itemWidth:{
-				type:String,
-				default:"375rpx"
+			itemWidth: {
+				type: String,
+				default: "375rpx"
 			},
-			itemHeigth:{
-				type:String,
-				default:"375rpx"
+			itemHeigth: {
+				type: String,
+				default: "375rpx"
 			},
-			wrap:{
-				typr:String,
-				default:'wrap'
+			wrap: {
+				typr: String,
+				default: 'wrap'
 			},
-			nameSize:{
-				typr:String,
-				default:'24rpx'
+			nameSize: {
+				typr: String,
+				default: '24rpx'
 			}
 		},
 	}
 </script>
 
 <style scoped>
-	.commodity{
+	.commodity {
 		display: flex;
 	}
-	.commodity-item{
+
+	.commodity-item {
 		width: 375rpx;
 		padding-bottom: 20rpx;
 	}
-	img{
+
+	img {
 		width: 100%;
 	}
-	.commodity-content{
+
+	.commodity-content {
 		text-align: center;
 	}
-	.commodity-name{
+
+	.commodity-name {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
@@ -71,12 +75,14 @@
 		word-break: break-all;
 		padding: 6rpx 20rpx;
 	}
-	.oprice{
+
+	.oprice {
 		text-decoration: line-through;
-		
+
 		color: #999;
 	}
-	.discount{
+
+	.discount {
 		border: 1px solid red;
 		border-radius: 4rpx;
 		padding: 4rpx 10rpx;
