@@ -1,21 +1,29 @@
 /* 公共样式 */
-.fColor{
-  color: pink;
+.fColor {
+	color: pink;
 }
-.bg{
-	background:#42b7f8;
+
+.bg {
+	background: #42b7f8;
 }
+
 /* 隐藏滚动条 */
 ::-webkit-scrollbar {
-  display: none;
-  width: 0!important;
-  height: 0!important;
-  -webkit-appearance: none;
-  background: transparent;
+	display: none;
+	width: 0 !important;
+	height: 0 !important;
+	-webkit-appearance: none;
+	background: transparent;
 }
-.scroll-item{
-  display:inline-block
+
+.scroll-item {
+	display: inline-block
 }
+
 .scroll-box {
-  white-space: nowrap
+	white-space: nowrap
+}
+
+.ft-color {
+	color: #636263;
 }

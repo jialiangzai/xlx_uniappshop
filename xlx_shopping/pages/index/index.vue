@@ -33,7 +33,7 @@
 				<!-- <Shop></Shop> -->
 
 				<!-- 自定组件高度获取 触底-->
-				<scroll-view scroll-y="true" :style="'height:'+clentHeight+'px;'">
+				<scroll-view scroll-y="true" :style="'height:'+clentHeight+'px;'" @scrolltolower="loadMore(index)">
 					<!-- 考虑到item遍历 -->
 					<block v-if="item.data.length>0">
 						<block v-for="(k,i) in item.data" :key="i">
@@ -82,6 +82,10 @@
 					<block v-else>
 						暂无数据
 					</block>
+					<!-- 触底刷新 -->
+					<view class="load-text ft-color ">
+						{{item.loadText}}
+					</view>
 				</scroll-view>
 				<!-- </view> -->
 			</swiper-item>
@@ -160,6 +164,13 @@
 			// }).exec();
 		},
 		methods: {
+			// 上拉加载数据
+			loadMore(m) {
+				// console.log(m);
+				this.newTopBar[m].loadText = '加载中……'
+				// 请求数据
+				// this.newTopBar[m].loadText = '上拉加载更多……'
+			},
 			addData() {
 				// 拿到点击的topbar的索引
 				let n = this.activeTop
@@ -193,7 +204,9 @@
 				for (let i = 0; i < this.topBar.length; i++) {
 					let obj = {
 						data: [],
-						load: "first"
+						load: "first",
+						// 触底更新动态文字
+						loadText: '下拉加载更多'
 					}
 					if (i == 0) {
 						obj.data = data.data
@@ -285,4 +298,8 @@
 	/* .index{
 	background-color: pink;
 } */
+	.load-text {
+		border-top: 2rpx solid #636263;
+		line-height: 60rpx;
+	}
 </style>
