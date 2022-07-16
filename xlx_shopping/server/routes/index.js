@@ -7,7 +7,91 @@ router.get('/', function(req, res, next) {
 		title: 'Express'
 	});
 });
-// 服饰内衣
+// 服饰内衣触底第3次
+router.get('/api/index_list/2/data/3', function(req, res, next) {
+	res.send({
+		'code': 0,
+		'data': [{
+			type: "commodityList",
+			data: [{
+					id: 1,
+					imgUrl: "../../static/img/commodity (1).jpg",
+					name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
+					pprice: "299",
+					oprice: "659",
+					discount: "5.2"
+				},
+				{
+					id: 2,
+					imgUrl: "../../static/img/commodity (1).jpg",
+					name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
+					pprice: "299",
+					oprice: "659",
+					discount: "5.2"
+				},
+				{
+					id: 3,
+					imgUrl: "../../static/img/commodity (1).jpg",
+					name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
+					pprice: "299",
+					oprice: "659",
+					discount: "5.2"
+				},
+				{
+					id: 4,
+					imgUrl: "../../static/img/commodity (1).jpg",
+					name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
+					pprice: "299",
+					oprice: "659",
+					discount: "5.2"
+				}
+			]
+		}]
+	});
+});
+// 服饰内衣触底第二次
+router.get('/api/index_list/2/data/2', function(req, res, next) {
+	res.send({
+		'code': 0,
+		'data': [{
+			type: "commodityList",
+			data: [{
+					id: 1,
+					imgUrl: "../../static/img/commodity (1).jpg",
+					name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
+					pprice: "299",
+					oprice: "659",
+					discount: "5.2"
+				},
+				{
+					id: 2,
+					imgUrl: "../../static/img/commodity (1).jpg",
+					name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
+					pprice: "299",
+					oprice: "659",
+					discount: "5.2"
+				},
+				{
+					id: 3,
+					imgUrl: "../../static/img/commodity (1).jpg",
+					name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
+					pprice: "299",
+					oprice: "659",
+					discount: "5.2"
+				},
+				{
+					id: 4,
+					imgUrl: "../../static/img/commodity (1).jpg",
+					name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
+					pprice: "299",
+					oprice: "659",
+					discount: "5.2"
+				}
+			]
+		}]
+	});
+});
+// 服饰内衣第一次
 router.get('/api/index_list/2/data/1', function(req, res, next) {
 	res.send({
 		'code': 0,
@@ -171,7 +255,7 @@ router.get('/api/index_list/2/data/1', function(req, res, next) {
 		]
 	});
 });
-// 服饰内衣
+// 鞋靴箱包第一次
 router.get('/api/index_list/3/data/1', function(req, res, next) {
 	res.send({
 		'code': 0,

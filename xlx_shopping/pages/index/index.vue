@@ -168,16 +168,20 @@
 			loadMore(m) {
 				// console.log(m);
 				this.newTopBar[m].loadText = '加载中……'
-				// 请求数据
-				// this.newTopBar[m].loadText = '上拉加载更多……'
+				// 请求数据完文字提示信息更改
+				this.addData(() => {
+					this.newTopBar[m].loadText = '上拉加载更多……'
+				})
 			},
-			addData() {
+			addData(callback) {
 				// 拿到点击的topbar的索引
 				let n = this.activeTop
 				// console.log(n);
 				// 拿到索引对应的id
 				let id = this.topBar[n].id
 				// console.log(id);
+				let page = Math.ceil(this.newTopBar[n].data.length / 5) + 1
+				console.log('page', page);
 				// 请求数据
 				uni.request({
 					// 最后一位是为了做触底
@@ -196,6 +200,10 @@
 				})
 				// ==='last'
 				this.newTopBar[n].load = 'last'
+				// 判断
+				if (typeof callback == 'function') {
+					callback()
+				}
 			},
 			// topbar承载
 			initHomeBotom(data) {
