@@ -112,6 +112,7 @@
 </template>
 
 <script>
+	import $http from '@/common/api/request.js'
 	import indexSwiper from '@/components/index/indexSwiper';
 	import Recommed from '@/components/index/Recommed.vue';
 	import Card from '@/components/index/Card.vue'
@@ -173,7 +174,7 @@
 					this.newTopBar[m].loadText = '上拉加载更多……'
 				})
 			},
-			addData(callback) {
+			async addData(callback) {
 				// 拿到点击的topbar的索引
 				let n = this.activeTop
 				// console.log(n);
@@ -181,23 +182,27 @@
 				let id = this.topBar[n].id
 				// console.log(id);
 				let page = Math.ceil(this.newTopBar[n].data.length / 5) + 1
-				console.log('page', page);
+				// console.log('page', page);
 				// 请求数据
-				uni.request({
-					// 最后一位是为了做触底
-					url: `http://172.16.6.184:8088/api/index_list/${id}/data/1`,
-					// url:'http://192.168.0.151:8088/api/index_list/2/data/1',
-					success: (res) => {
-						if (res.statusCode != 200) {
-							return
-						} else {
-							let data = res.data.data
-							console.log(data);
-							this.newTopBar[n].data = [...this.newTopBar[n].data, ...data]
-						}
-
-					}
+				let res = await $http.request({
+					url: `/api/index_list/${id}/data/${page}`
 				})
+				this.newTopBar[n].data = [...this.newTopBar[n].data, ...res]
+				// uni.request({
+				// 	// 最后一位是为了做触底
+				// 	url: `http://172.16.6.184:8088/api/index_list/${id}/data/1`,
+				// 	// url:'http://192.168.0.151:8088/api/index_list/2/data/1',
+				// 	success: (res) => {
+				// 		if (res.statusCode != 200) {
+				// 			return
+				// 		} else {
+				// 			let data = res.data.data
+				// 			console.log(data);
+				// 			this.newTopBar[n].data = [...this.newTopBar[n].data, ...data]
+				// 		}
+
+				// 	}
+				// })
 				// ==='last'
 				this.newTopBar[n].load = 'last'
 				// 判断
@@ -224,20 +229,34 @@
 				return arr
 			},
 			// 初始化内容
-			initHome() {
-				uni.request({
-					url: 'http://172.16.6.184:8088/api/index_list/data',
-					// url:'http://192.168.0.151:8088/api/index_list/data',
-					success: (res) => {
-						// console.log(res);
-						let data = res.data.data
-						console.log(data.topBar);
-						this.topBar = data.topBar
-						// 承载新的
-						this.newTopBar = this.initHomeBotom(data)
+			async initHome() {
+				try {
 
-					}
-				})
+					let res = await $http.request({
+						url: '/api/index_list/data',
+					})
+					this.topBar = res.topBar
+					// 承载新的
+					this.newTopBar = this.initHomeBotom(res)
+				} catch (e) {
+					uni.showToast({
+						title: "请求失败",
+						icon: 'error'
+					})
+				}
+				// uni.request({
+				// 	// url: 'http://172.16.6.184:8088/api/index_list/data',
+				// 	// url:'http://192.168.0.151:8088/api/index_list/data',
+				// 	success: (res) => {
+				// 		// console.log(res);
+				// 		let data = res.data.data
+				// 		console.log(data.topBar);
+				// 		this.topBar = data.topBar
+				// 		// 承载新的
+				// 		this.newTopBar = this.initHomeBotom(data)
+
+				// 	}
+				// })
 			},
 			changeTap(n) {
 				if (this.activeTop === n) {
