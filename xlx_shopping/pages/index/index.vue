@@ -147,6 +147,16 @@
 		onLoad() {
 			this.initHome()
 		},
+		// 监听原生标题栏按钮点击事件，参数为Object
+		onNavigationBarButtonTap(e) {
+			// console.log('e', e);
+			if (e.index == 0) {
+				// 搜索
+				uni.navigateTo({
+					url: '/pages/search/search'
+				})
+			}
+		},
 		onReady() {
 			uni.getSystemInfo({
 				success: (res) => {
