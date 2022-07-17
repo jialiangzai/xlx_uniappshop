@@ -40,7 +40,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 app.listen(8088,()=>{
-	console.log('run:','http://172.16.6.184:8088');
-	// console.log('run:','http://192.168.0.151:8088');
+	// console.log('run:','http://172.16.6.184:8088');
+	console.log('run:','http://192.168.0.151:8088');
 })
 module.exports = app;

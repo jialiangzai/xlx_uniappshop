@@ -1,41 +1,71 @@
 <template>
-	<view class="search">
-		<lines></lines>
-		<view class="search-item">
-			<!-- 历史记录 -->
-			<view class="search-title">
-				<view>
-					历史记录
-				</view>
-				<view class="icon-search">
-
-				</view>
+  <view class="search">
+    <lines></lines>	
+		<view class='search-item'>
+			<view class='search-title'>
+				<view class='f-color'>最近搜索</view>
+				<!-- <view class='iconfont icon-search'></view> -->
 			</view>
-			<!-- 热门搜索 -->
-			<view class="">
-
+			<view>
+				<view class='search-name f-color'>四件套</view>
+				<view class='search-name f-color'>面膜</view>
 			</view>
 		</view>
+		
+		<view class='search-item'>
+			<view class='search-title'>
+				<view class='f-color'>热门搜索</view>
+			</view>
+			<view>
+				<view class='search-name f-color'>四件套</view>
+				<view class='search-name f-color'>面膜</view>
+			</view>
+		</view>
+		
 	</view>
+
+
+  </view>
 </template>
 
 <script>
-	import lines from '@/components/lines/lines.vue'
-	export default {
-		data() {
-			return {
+  import lines from '@/components/lines/lines.vue'
+  export default {
+    data() {
+      return {
 
-			}
-		},
-		components: {
-			lines
-		},
-		methods: {
+      }
+    },
+    components: {
+      lines
+    },
+    onNavigationBarButtonTap(e){
+      // console.log(e);
+      if(e.float == "right"){
+        uni.navigateTo({
+          url:'/pages/search-list/search-list'
+        })
+      }
+    },
+    methods: {
 
-		}
-	}
+    }
+  }
 </script>
 
 <style>
-
+.search-item{
+	padding:20rpx;
+}
+.search-title{
+	display: flex;
+	justify-content: space-between;
+}
+.search-name{
+	padding:4rpx 24rpx;
+	background-color: #E1E1E1;
+	display: inline-block;
+	border-radius: 26rpx;
+	margin:10rpx;
+}
 </style>
