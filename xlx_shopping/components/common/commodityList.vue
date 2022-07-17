@@ -1,6 +1,6 @@
 <template>
 	<view class="commodityList">
-		商品列表
+		
 		<commodity :dataList="dataList" ></commodity>
 	</view>
 </template>

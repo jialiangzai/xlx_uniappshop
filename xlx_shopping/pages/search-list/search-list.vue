@@ -1,15 +1,19 @@
 <template>
   <view>
-  搜索结果页面列表
+  <shopList></shopList>
   </view>
 </template>
 
 <script>
-  export default {
+  import shopList from "@/components/common/shopList.vue"
+ export default {
     data() {
       return {
         
       }
+    },
+    components: {
+      shopList
     },
     methods: {
       

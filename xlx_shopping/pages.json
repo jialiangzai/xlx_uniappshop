@@ -84,7 +84,7 @@
 					"titleNView": {
 						"searchInput": {
 							"placeholder": "ERKE",
-							"disabled": false,
+							"disabled": true,
 							"align": "center",
 							"borderRadius": "15px",
 							"backgroundColor": "#f7f7f7",
