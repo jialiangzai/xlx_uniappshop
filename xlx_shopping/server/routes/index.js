@@ -1,11 +1,33 @@
 var express = require('express');
+var connections = require('../db/sql');
 var router = express.Router();
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('index', {
 		title: 'Express'
 	});
+});
+// 搜索
+router.get('/api/goods/search', function(req, res, next) {
+	let [
+		goodsName,
+		orderName
+	] = Object.keys(req.query)
+	console.log(goodsName, orderName);
+	let name = req.query.name;
+	let order = req.query[orderName];
+	connections.query("select * from good_search where name like '%" + name + "%' order by " + orderName +
+		" " + order + "",
+		function(error,
+			results, fields) {
+			if (error) throw error;
+			// connected!
+			console.log('res', results);
+			res.send({
+				code: "0",
+				data: results
+			})
+		})
 });
 // 服饰内衣触底第3次
 router.get('/api/index_list/2/data/3', function(req, res, next) {

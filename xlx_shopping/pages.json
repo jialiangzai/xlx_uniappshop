@@ -81,7 +81,6 @@
 					"scrollIndicator": "none",
 					"titleNView": {
 						"searchInput": {
-							"placeholder": "ERKE",
 							"disabled": true,
 							"align": "center",
 							"borderRadius": "15px",
