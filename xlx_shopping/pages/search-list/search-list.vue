@@ -1,24 +1,25 @@
 <template>
-  <view>
-  <shopList></shopList>
-  </view>
+	<view>
+		<shopList></shopList>
+	</view>
 </template>
 
 <script>
-  import shopList from "@/components/common/shopList.vue"
- export default {
-    data() {
-      return {
-        
-      }
-    },
-    components: {
-      shopList
-    },
-    methods: {
-      
-    }
-  }
+	import shopList from "@/components/common/shopList.vue"
+	export default {
+		data() {
+			return {
+
+			}
+		},
+		components: {
+			shopList
+		},
+
+		methods: {
+
+		}
+	}
 </script>
 
 <style>
