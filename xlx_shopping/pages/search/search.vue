@@ -4,7 +4,7 @@
 		<view class='search-item'>
 			<view class='search-title'>
 				<view class='f-color'>最近搜索</view>
-				<!-- <view class='iconfont icon-search'></view> -->
+				<view class='icon-bin' @tap="clearData"></view>
 			</view>
 			<view class="" v-if="searchData.length>0">
 				<view v-for="(a,b) in searchData" :key="b" class='search-name f-color'>{{a}}</view>
@@ -40,7 +40,7 @@
 				// 输入的关键词
 				keyword: '',
 				// 搜索记录
-				searchData: ['四件套', '面膜']
+				searchData: []
 			}
 		},
 		components: {
@@ -102,6 +102,24 @@
 				uni.setStorage({
 					key: 'searchData',
 					data: JSON.stringify(this.searchData)
+				})
+			},
+			// 清除
+			clearData() {
+				uni.showModal({
+					title: '重要提示',
+					content: '是否要清除搜索记录',
+					cancelText: '取消',
+					confirmText: '确定',
+					success: (res) => {
+						// console.log('res', res);
+						if (res.confirm) {
+							uni.removeStorage({
+								key: 'searchData'
+							})
+							this.searchData = []
+						}
+					}
 				})
 			}
 		}
