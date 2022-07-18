@@ -6,9 +6,13 @@
 				<view class='f-color'>最近搜索</view>
 				<!-- <view class='iconfont icon-search'></view> -->
 			</view>
-			<view>
-				<view class='search-name f-color'>四件套</view>
-				<view class='search-name f-color'>面膜</view>
+			<view class="" v-if="searchData.length>0">
+				<view v-for="(a,b) in searchData" :key="b" class='search-name f-color'>{{a}}</view>
+			</view>
+			<view class="cent" v-else>
+
+				暂无搜索记录
+
 			</view>
 		</view>
 
@@ -34,8 +38,9 @@
 		data() {
 			return {
 				// 输入的关键词
-				keyword: ''
-
+				keyword: '',
+				// 搜索记录
+				searchData: ['四件套', '面膜']
 			}
 		},
 		components: {
@@ -57,6 +62,14 @@
 		onNavigationBarSearchInputConfirmed() {
 			this.search()
 		},
+		onLoad() {
+			uni.getStorage({
+				key: 'searchData',
+				success: (res) => {
+					this.searchData = JSON.parse(res.data)
+				}
+			})
+		},
 		methods: {
 			search() {
 				if (this.keyword == '') {
@@ -69,10 +82,27 @@
 					uni.navigateTo({
 						url: '/pages/search-list/search-list'
 					})
-					uni.onKeyboardHeightChange(res => {
-						console.log(res.height)
-					})
+
 				}
+				uni.hideKeyboard()
+				// 记录最近搜索词
+				this.addSearch()
+			},
+			addSearch() {
+				// 去重
+				let iin = this.searchData.indexOf(this.keyword)
+				if (iin < 0) {
+					this.searchData.unshift(this.keyword)
+				} else {
+					// 删除
+					let newArr = this.searchData.splice(iin, 1)
+					// 添加
+					this.searchData.unshift(newArr[0])
+				}
+				uni.setStorage({
+					key: 'searchData',
+					data: JSON.stringify(this.searchData)
+				})
 			}
 		}
 	}
@@ -94,5 +124,9 @@
 		display: inline-block;
 		border-radius: 26rpx;
 		margin: 10rpx;
+	}
+
+	.cent {
+		text-align: center;
 	}
 </style>
