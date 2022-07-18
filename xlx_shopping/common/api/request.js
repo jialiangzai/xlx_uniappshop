@@ -1,7 +1,7 @@
 export default {
 	common: {
-		// baseurl: "http://172.16.6.184:8088",
-		baseurl: "http://192.168.0.151:8088",
+		baseurl: "http://172.16.6.184:8088",
+		// baseurl: "http://192.168.0.151:8088",
 		data: {},
 		header: {
 			"Content-type": "application/json",

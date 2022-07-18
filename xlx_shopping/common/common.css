@@ -2,9 +2,11 @@
 .fColor {
 	color: pink;
 }
-.f-color{
-  color: ##666;
+
+.f-color {
+	color: ##666;
 }
+
 .bg {
 	background: #42b7f8;
 }
@@ -28,4 +30,8 @@
 
 .ft-color {
 	color: #636263;
+}
+
+.f-active-color {
+	color: red;
 }
