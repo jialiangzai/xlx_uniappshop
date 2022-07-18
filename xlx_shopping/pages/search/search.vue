@@ -80,7 +80,7 @@
 				} else {
 					// 因为tabbar目前就一个按钮所以直接跳转也是可以的
 					uni.navigateTo({
-						url: '/pages/search-list/search-list'
+						url: `/pages/search-list/search-list?keyword=${this.keyword}`
 					})
 
 				}

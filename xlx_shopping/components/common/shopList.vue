@@ -1,6 +1,6 @@
 <template>
 	<view class='shop-list'>
-
+		{{keyword}}
 		<view class='shop-title f-color'>
 			<view class='shop-item' v-for="(item,index) in shopList.data" :key="index" @tap="changeTab(index)">
 				<view :class=" shopList.currentIndex == index?'f-active-color' : ''">{{item.name}}</view>
@@ -22,6 +22,11 @@
 	import lines from '@/components/lines/lines.vue'
 	import CommodityList from './commodityList.vue'
 	export default {
+		props: {
+			keyword: {
+				type: String
+			}
+		},
 		data() {
 			return {
 				shopList: {
@@ -79,6 +84,7 @@
 			lines,
 			CommodityList
 		},
+
 		methods: {
 			changeTab(n) {
 				// 

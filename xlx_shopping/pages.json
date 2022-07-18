@@ -54,7 +54,7 @@
 					"scrollIndicator": "none",
 					"titleNView": {
 						"searchInput": {
-							"placeholder": "ERKE",
+							"placeholder": "",
 							"disabled": false,
 							"align": "center",
 							"autoFocus": true,
@@ -71,11 +71,9 @@
 				}
 			}
 
-		}
-	    ,{
-            "path" : "pages/search-list/search-list",
-            "style" :                                                                                    
-            {
+		}, {
+			"path": "pages/search-list/search-list",
+			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#fff",
@@ -98,9 +96,9 @@
 					}
 				}
 			}
-            
-        }
-    ],
+
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
