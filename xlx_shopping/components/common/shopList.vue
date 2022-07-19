@@ -33,11 +33,14 @@
 					currentIndex: 0,
 					data: [{
 							name: '价格',
-							status: 1
+							status: 1,
+							// 传给后端
+							key: 'pprice'
 						},
 						{
 							name: '折扣',
-							status: 1
+							status: 1,
+							key: 'discount'
 						},
 						{
 							name: '品牌',
@@ -52,6 +55,15 @@
 			lines,
 			CommodityList
 		},
+		computed: {
+			orderBy() {
+				let obj = this.shopList.data[this.shopList.currentIndex]
+				let sta = obj.status === 1 ? 'desc' : 'asc'
+				return {
+					[obj.key]: sta
+				}
+			}
+		},
 		mounted() {
 			this.getData()
 		},
@@ -62,7 +74,7 @@
 					url: '/api/goods/search',
 					data: {
 						name: this.keyword,
-						pprice: "desc"
+						...this.orderBy
 					}
 				}).then(res => {
 					// console.log(JSON.stringify(res));
@@ -72,6 +84,7 @@
 			},
 			changeTab(n) {
 				// 
+				this.getData()
 				let idx = this.shopList.currentIndex
 				// 查看具体是哪一个对象
 				let item = this.shopList.data[idx]
