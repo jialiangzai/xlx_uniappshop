@@ -1,6 +1,5 @@
 <template>
 	<view class='shop-list'>
-		{{keyword}}
 		<view class='shop-title f-color'>
 			<view class='shop-item' v-for="(item,index) in shopList.data" :key="index" @tap="changeTab(index)">
 				<view :class=" shopList.currentIndex == index?'f-active-color' : ''">{{item.name}}</view>
@@ -21,6 +20,7 @@
 <script>
 	import lines from '@/components/lines/lines.vue'
 	import CommodityList from './commodityList.vue'
+	import $http from '@/common/api/request.js'
 	export default {
 		props: {
 			keyword: {
@@ -45,47 +45,31 @@
 						},
 					]
 				},
-				dataList: [{
-						id: 1,
-						imgUrl: "../../static/img/commodity (2).jpg",
-						name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
-						pprice: "299",
-						oprice: "659",
-						discount: "5.2"
-					},
-					{
-						id: 2,
-						imgUrl: "../../static/img/commodity (2).jpg",
-						name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
-						pprice: "299",
-						oprice: "659",
-						discount: "5.2"
-					},
-					{
-						id: 3,
-						imgUrl: "../../static/img/commodity (2).jpg",
-						name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
-						pprice: "299",
-						oprice: "659",
-						discount: "5.2"
-					},
-					{
-						id: 4,
-						imgUrl: "../../static/img/commodity (2).jpg",
-						name: "大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008大姨绒毛大款2020年必须买,不买你就不行了,爆款疯狂GG008",
-						pprice: "299",
-						oprice: "659",
-						discount: "5.2"
-					}
-				]
+				dataList: []
 			}
 		},
 		components: {
 			lines,
 			CommodityList
 		},
-
+		mounted() {
+			this.getData()
+		},
 		methods: {
+			// 请求搜索数据
+			getData() {
+				let res = $http.request({
+					url: '/api/goods/search',
+					data: {
+						name: this.keyword,
+						pprice: "desc"
+					}
+				}).then(res => {
+					// console.log(JSON.stringify(res));
+					this.dataList = res
+				})
+
+			},
 			changeTab(n) {
 				// 
 				let idx = this.shopList.currentIndex

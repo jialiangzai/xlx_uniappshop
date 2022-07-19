@@ -48,7 +48,6 @@
 		},
 		// 监听onNavigationBarSearchInputChanged
 		onNavigationBarSearchInputChanged(e) {
-			console.log(e);
 			this.keyword = e.text
 		},
 		onNavigationBarButtonTap(e) {

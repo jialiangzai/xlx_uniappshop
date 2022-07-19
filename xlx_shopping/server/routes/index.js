@@ -1,5 +1,5 @@
 var express = require('express');
-var connections = require('../db/sql');
+var connection = require('../db/sql');
 var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -8,26 +8,27 @@ router.get('/', function(req, res, next) {
 	});
 });
 // 搜索
-router.get('/api/goods/search', function(req, res, next) {
-	let [
-		goodsName,
-		orderName
-	] = Object.keys(req.query)
-	console.log(goodsName, orderName);
+
+
+router.get("/api/goods/search", function(req, res, next) {
+	//desc降序     asc升序
+	//获取对象的key
+	let [goodsName, orderName] = Object.keys(req.query);
+	//name参数的值
 	let name = req.query.name;
+	//orderName的key的值
 	let order = req.query[orderName];
-	connections.query("select * from good_search where name like '%" + name + "%' order by " + orderName +
-		" " + order + "",
-		function(error,
-			results, fields) {
+
+	connection.query("select * from good_search where name like '%" + name + "%' order by " + orderName + " " +
+		order + "",
+		function(error, results, fields) {
 			if (error) throw error;
-			// connected!
-			console.log('res', results);
 			res.send({
 				code: "0",
 				data: results
 			})
-		})
+		});
+
 });
 // 服饰内衣触底第3次
 router.get('/api/index_list/2/data/3', function(req, res, next) {
