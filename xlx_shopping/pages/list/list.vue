@@ -1,20 +1,29 @@
 <template>
-  <view>
-    
-  </view>
+	<view class="listBox">
+		<Lines></Lines>
+	</view>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        
-      }
-    },
-    methods: {
-      
-    }
-  }
+	import Lines from '@/components/lines/lines.vue'
+	export default {
+		data() {
+			return {
+
+			}
+		},
+		methods: {
+
+		},
+		components: {
+			Lines
+		},
+		onNavigationBarSearchInputClicked() {
+			uni.navigateTo({
+				url: '/pages/search/search'
+			})
+		}
+	}
 </script>
 
 <style>
