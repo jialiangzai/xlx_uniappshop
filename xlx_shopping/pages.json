@@ -111,6 +111,31 @@
 				}
 			}
 
+		}, {
+			"path": "pages/details/details",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff",
+				"app-plus": {
+					"scrollIndicator": "none",
+					"titleNView": {
+						"type": "transparent", //透明渐变导航栏 App-nvue 2.4.4+ 支持
+						"buttons": [{
+
+								"type": "menu"
+
+							},
+							{
+
+								"type": "share"
+
+							}
+						]
+					}
+				}
+			}
+
 		}
 	],
 	"globalStyle": {
