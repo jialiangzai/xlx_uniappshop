@@ -39,8 +39,15 @@
 		<view class="details-foot">
 			<view class="aad icon-message"></view>
 			<view class="aad icon-shopping-cart"></view>
-			<view class="add-shopcart">加入购物车</view>
-			<view class="purchase">立即购买</view>
+			<view class="add-shopcart" @tap='showPop'>加入购物车</view>
+			<view class="purchase" @tap='showPop'>立即购买</view>
+		</view>
+		<!-- 底部弹出层 -->
+		<view class="pop" v-show='isShow' @touchmove.stop.prevent=''>
+			<!--蒙层-->
+			<view class='pop-mask' @tap='hidePop'></view>
+			<!--内容块-->
+			<view class='pop-box' :animation="animationData"></view>
 		</view>
 
 	</view>
@@ -52,6 +59,8 @@
 	export default {
 		data() {
 			return {
+				isShow: false,
+				animationData: {},
 				swiperList: [{
 						imgUrl: "../../static/img/details1.jpeg"
 					},
@@ -102,7 +111,22 @@
 			CommodityList
 		},
 		methods: {
-
+			hidePop() {
+				this.isShow = false
+			},
+			showPop() {
+				var animation = uni.createAnimation({
+					duration: 1000,
+					timingFunction: 'ease',
+				})
+				animation.translateY(2000).step()
+				this.animationData = animation.export()
+				setTimeout(function() {
+					animation.translate(0).step()
+					this.animationData = animation.export()
+				}.bind(this), 1000)
+				this.isShow = true
+			}
 		}
 	}
 </script>
@@ -170,5 +194,32 @@
 		background-color: red;
 		color: #fff;
 		border-radius: 40rpx;
+	}
+
+	.pop {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 9999;
+	}
+
+	.pop-mask {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+
+	.pop-box {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 400px;
+		background-color: #E80080;
 	}
 </style>
