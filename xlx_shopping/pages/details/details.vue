@@ -32,9 +32,16 @@
 				<image class='details-img' src="../../static/img/detail5.jpg" mode=""></image>
 			</view>
 		</view>
-
+		<!-- 商品列表 -->
 		<Card cardTitle='看了又看'></Card>
 		<CommodityList :dataList='dataList'></CommodityList>
+		<!-- 底部 -->
+		<view class="">
+			<view class=""></view>
+			<view></view>
+			<view class="add-shopcart">加入购物车</view>
+			<view class="purchase">立即购买</view>
+		</view>
 
 	</view>
 </template>
