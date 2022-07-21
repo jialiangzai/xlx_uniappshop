@@ -4,24 +4,26 @@
 		<view class="list">
 			<!-- 左侧 -->
 			<scroll-view scroll-y="true" class="list-left" :style="'height:'+clentHeight+'px;'">
-				<view v-for="(n,i) in 50" :key="i" class="list-item" @tap="changLeft(i)">
+				<view v-for="(n,i) in leftData" :key="i" class="list-item" @tap="changLeft(i,n.id)">
 					<view class="list-name" :class="activeIndex == i?'list-name-active':''">
-						{{n}}
+						{{n.name}}
 					</view>
 				</view>
 			</scroll-view>
 			<!-- 右侧 -->
 			<scroll-view scroll-y="true" class="list-right" :style="'height:'+clentHeight+'px;'">
-				<view class="right-list">
-					<view class="list-title">家纺</view>
-					<view class="right-content">
-						<view class="right-item">
-							<img class="right-img" src="../../static/img/list1.jpg" alt="">
-							<view class="right-name">
-								毛巾
+				<view class="right-list" v-for="(item,index) in rightData" :key="index">
+					<block v-for="(k,x) in item" :key="x">
+						<view class="list-title">{{k.name}}</view>
+						<view class="right-content">
+							<view class="right-item" v-for="(j,p) in k.list" :key="p">
+								<img class="right-img" :src="j.imgUrl" alt="">
+								<view class="right-name">
+									{{j.name}}
+								</view>
 							</view>
 						</view>
-					</view>
+					</block>
 				</view>
 			</scroll-view>
 		</view>
@@ -29,15 +31,20 @@
 </template>
 
 <script>
+	import $http from '@/common/api/request.js'
 	import Lines from '@/components/lines/lines.vue'
 	export default {
 		data() {
 			return {
 				clentHeight: 0,
-				activeIndex: 0
+				activeIndex: 0,
+				leftData: [],
+				rightData: []
 			}
 		},
 		onLoad() {
+			// 获取数据
+			this.getData()
 			uni.getSystemInfo({
 				success: (res) => {
 					console.log(res);
@@ -55,7 +62,30 @@
 			// }).exec();
 		},
 		methods: {
-			changLeft(index) {
+			async getData(id) {
+				if (id == (this.activeIndex + 1)) {
+					return
+				}
+				// 请求数据
+				let res = await $http.request({
+					url: `/api/goods/list`
+				})
+				let leftData = []
+				let rightBox = []
+				res.forEach(v => {
+					leftData.push({
+						id: v.id,
+						name: v.name
+					})
+					if (v.id == (this.activeIndex + 1)) {
+						rightBox.push(v.data)
+					}
+				})
+				this.leftData = leftData
+				this.rightData = rightBox
+			},
+			changLeft(index, id) {
+				this.getData(id)
 				this.activeIndex = index
 			},
 			getClientHeight() {
