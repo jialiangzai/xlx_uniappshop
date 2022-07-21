@@ -115,7 +115,7 @@
 	import $http from '@/common/api/request.js'
 	import indexSwiper from '@/components/index/indexSwiper';
 	import Recommed from '@/components/index/Recommed.vue';
-	import Card from '@/components/index/Card.vue'
+	import Card from '@/components/common/Card.vue'
 	import commodityList from '@/components/common/commodityList.vue'
 	import Banner from '@/components/index/Banner.vue'
 	import Icons from '@/components/index/Icons.vue'
