@@ -36,9 +36,9 @@
 		<Card cardTitle='看了又看'></Card>
 		<CommodityList :dataList='dataList'></CommodityList>
 		<!-- 底部 -->
-		<view class="">
-			<view class=""></view>
-			<view></view>
+		<view class="details-foot">
+			<view class="aad icon-message"></view>
+			<view class="aad icon-shopping-cart"></view>
 			<view class="add-shopcart">加入购物车</view>
 			<view class="purchase">立即购买</view>
 		</view>
@@ -108,6 +108,10 @@
 </script>
 
 <style scoped>
+	.details {
+		padding-bottom: 90rpx;
+	}
+
 	swiper {
 		width: 100%;
 		height: 700rpx;
@@ -127,5 +131,44 @@
 
 	.details-img {
 		width: 100%;
+	}
+
+	.details-foot {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 90rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #fff;
+	}
+
+	.details-foot .aad {
+		width: 60rpx;
+		height: 60rpx;
+		border-radius: 100%;
+		line-height: 60rpx;
+		color: #fff;
+		background-color: #000;
+		text-align: center;
+		margin: 0 10rpx;
+	}
+
+	.add-shopcart {
+		margin: 0 40rpx;
+		padding: 6rpx 30rpx;
+		background-color: #000;
+		color: #fff;
+		border-radius: 40rpx;
+	}
+
+	.purchase {
+		margin: 0 40rpx;
+		padding: 6rpx 30rpx;
+		background-color: red;
+		color: #fff;
+		border-radius: 40rpx;
 	}
 </style>
