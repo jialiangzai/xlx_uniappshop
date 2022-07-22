@@ -43,6 +43,7 @@
 			<view class="purchase" @tap='showPop'>立即购买</view>
 		</view>
 		<!-- 底部弹出层 -->
+		<!-- @touchmove.stop.prevent=''取消蒙层默认 -->
 		<view class="pop" v-show='isShow' @touchmove.stop.prevent=''>
 			<!--蒙层-->
 			<view class='pop-mask' @tap='hidePop'></view>
@@ -112,20 +113,28 @@
 		},
 		methods: {
 			hidePop() {
-				this.isShow = false
+				var animation = uni.createAnimation({
+					duration: 200,
+				})
+				animation.translateY(600).step()
+				this.animationData = animation.export()
+				setTimeout(() => {
+					animation.translateY(0).step()
+					this.animationData = animation.export()
+					this.isShow = false
+				}, 200)
 			},
 			showPop() {
 				var animation = uni.createAnimation({
-					duration: 1000,
-					timingFunction: 'ease',
+					duration: 200,
 				})
-				animation.translateY(2000).step()
+				animation.translateY(600).step()
 				this.animationData = animation.export()
-				setTimeout(function() {
-					animation.translate(0).step()
+				setTimeout(() => {
+					animation.translateY(0).step()
 					this.animationData = animation.export()
-				}.bind(this), 1000)
-				this.isShow = true
+					this.isShow = true
+				}, 200)
 			}
 		}
 	}
