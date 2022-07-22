@@ -48,7 +48,19 @@
 			<!--蒙层-->
 			<view class='pop-mask' @tap='hidePop'></view>
 			<!--内容块-->
-			<view class='pop-box' :animation="animationData"></view>
+			<view class='pop-box' :animation="animationData">
+				<view>
+					<image class='pop-img' src="../../static/img/detail1.jpg" mode=""></image>
+				</view>
+				<view class="pop-num">
+					<view class="">
+						购买数量
+					</view>
+				</view>
+				<view class="pop-sub">
+					确定
+				</view>
+			</view>
 		</view>
 
 	</view>
@@ -229,6 +241,24 @@
 		bottom: 0;
 		width: 100%;
 		height: 400px;
-		background-color: #E80080;
+		background-color: #fff;
+	}
+
+	.pop-img {
+		width: 260rpx;
+		height: 260rpx;
+	}
+
+	.pop-sub {
+		line-height: 80rpx;
+		background-color: red;
+		color: #fff;
+		text-align: center;
+	}
+
+	.pop-num {
+		display: flex;
+		padding: 20rpx;
+		justify-content: space-between;
 	}
 </style>
