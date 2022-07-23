@@ -1,34 +1,45 @@
 <template>
 	<view class="shop-cart">
-		<uniNavBar title="购物车" :rightText="rightBtn?'完成':'编辑'" fixed="true" statusBar @clickRight="changeBtn">
-		</uniNavBar>
-		<!--商品内容-->
-		<view class='shop-list'>
-			<view class='shop-item' v-for='(item,index) in list' :key='index'>
-				<label class="radio">
-					<radio value="" color="#FF3333" /><text></text>
-				</label>
-				<image class='shop-img' :src="item.imgUrl" mode=""></image>
-				<view class='shop-text'>
-					<view class='shop-name'>{{item.name}}</view>
-					<view class='shop-color f-color'>{{item.color}}</view>
-					<view class='shop-price'>
-						<view>¥{{item.pprice}}</view>
-						<view>*{{item.num}}</view>
+		<template v-if="list.length>0">
+
+
+			<uniNavBar title="购物车" :rightText="rightBtn?'完成':'编辑'" fixed="true" statusBar @clickRight="changeBtn">
+			</uniNavBar>
+			<!--商品内容-->
+			<view class='shop-list'>
+				<view class='shop-item' v-for='(item,index) in list' :key='index'>
+					<label class="radio">
+						<radio value="" color="#FF3333" /><text></text>
+					</label>
+					<image class='shop-img' :src="item.imgUrl" mode=""></image>
+					<view class='shop-text'>
+						<view class='shop-name'>{{item.name}}</view>
+						<view class='shop-color f-color'>{{item.color}}</view>
+						<view class='shop-price'>
+							<view>¥{{item.pprice}}</view>
+							<view>*{{item.num}}</view>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
-		<!--底部-->
-		<view class='shop-foot'>
-			<label class="radio foot-radio">
-				<radio value="" color='#FF3333' /><text>全选</text>
-			</label>
-			<view class='foot-total'>
-				<view class='foot-count'>合计：<text class='f-active-color'>¥0</text></view>
-				<view class='foot-num'>结算(0)</view>
+			<!--底部-->
+			<view class='shop-foot'>
+				<label class="radio foot-radio">
+					<radio value="" color='#FF3333' /><text>全选</text>
+				</label>
+				<view class='foot-total'>
+					<view class='foot-count'>合计：<text class='f-active-color'>¥0</text></view>
+					<view class='foot-num'>结算(0)</view>
+				</view>
 			</view>
-		</view>
+		</template>
+		<template v-else>
+			<uniNavBar title="购物车" fixed="true">
+			</uniNavBar>
+			<view class="shop-else-list">
+				囧~ 购物车还是空的
+			</view>
+		</template>
 	</view>
 </template>
 
@@ -123,5 +134,19 @@
 		color: #FFFFFF;
 		padding: 0 60rpx;
 		line-height: 100rpx;
+	}
+
+	.shop-else-list {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background-color: #f7f7f7;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
