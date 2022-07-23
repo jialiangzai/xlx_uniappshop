@@ -34,76 +34,19 @@
 
 <script>
 	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
+	import {
+		mapState
+	} from "vuex"
 	export default {
 		data() {
 			return {
 				rightBtn: false,
-				list: [{
-						checked: false,
-						id: 1,
-						name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
-						color: "颜色：返回对方的过分的",
-						imgUrl: "../../static/img/Children2.jpg",
-						pprice: "27",
-						num: 1
-					},
-					{
-						checked: false,
-						id: 2,
-						name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
-						color: "颜色：返回对方的过分的",
-						imgUrl: "../../static/img/Children2.jpg",
-						pprice: "27",
-						num: 1
-					},
-					{
-						checked: false,
-						id: 2,
-						name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
-						color: "颜色：返回对方的过分的",
-						imgUrl: "../../static/img/Children2.jpg",
-						pprice: "27",
-						num: 1
-					},
-					{
-						checked: false,
-						id: 2,
-						name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
-						color: "颜色：返回对方的过分的",
-						imgUrl: "../../static/img/Children2.jpg",
-						pprice: "27",
-						num: 1
-					},
-					{
-						checked: false,
-						id: 2,
-						name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
-						color: "颜色：返回对方的过分的",
-						imgUrl: "../../static/img/Children2.jpg",
-						pprice: "27",
-						num: 1
-					},
-					{
-						checked: false,
-						id: 2,
-						name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
-						color: "颜色：返回对方的过分的",
-						imgUrl: "../../static/img/Children2.jpg",
-						pprice: "27",
-						num: 1
-					},
-					{
-						checked: false,
-						id: 2,
-						name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
-						color: "颜色：返回对方的过分的",
-						imgUrl: "../../static/img/Children2.jpg",
-						pprice: "27",
-						num: 1
-					}
-				]
-
 			}
+		},
+		computed: {
+			...mapState({
+				list: state => state.car.list
+			})
 		},
 		methods: {
 			changeBtn(e) {
@@ -152,7 +95,7 @@
 		border-top: 2rpx solid #F7F7F7;
 		background-color: #FFFFFF;
 		position: fixed;
-		bottom: 0;
+		bottom: 96rpx;
 		left: 0;
 		width: 100%;
 		height: 100rpx;
@@ -176,7 +119,7 @@
 	}
 
 	.foot-num {
-		background-color: #49BDFB;
+		background-color: red;
 		color: #FFFFFF;
 		padding: 0 60rpx;
 		line-height: 100rpx;
