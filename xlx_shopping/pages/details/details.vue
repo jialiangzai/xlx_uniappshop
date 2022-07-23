@@ -128,6 +128,26 @@
 			CommodityList,
 			NumberBox
 		},
+		onNavigationBarButtonTap(e) {
+			console.log(e);
+			if (e.type == 'share') {
+				uni.share({
+					provider: 'weixin',
+					type: 0,
+					title: this.goodsContent.name,
+					scene: "WXSceneSession",
+					href: 'http://172.16.6.184:8080/#/pages/details/details?id="+this.goodsContent.id+"',
+					// 数据库存的图片地址所以不显示
+					imageUrl: this.goodsContent.imgUrl,
+					success: function(res) {
+						console.log("success:" + JSON.stringify(res));
+					},
+					fail: function(err) {
+						console.log("fail:" + JSON.stringify(err));
+					}
+				})
+			}
+		},
 		onLoad(e) {
 			console.log(e.id);
 			this.getDate(e.id)
