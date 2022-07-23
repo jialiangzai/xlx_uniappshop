@@ -9,7 +9,7 @@
 			<view class='shop-list'>
 				<view class='shop-item' v-for='(item,index) in list' :key='index'>
 					<label class="radio">
-						<radio value="" color="#FF3333" /><text></text>
+						<radio value="" color="#FF3333" :checked="item.checked" /><text></text>
 					</label>
 					<image class='shop-img' :src="item.imgUrl" mode=""></image>
 					<view class='shop-text'>
@@ -24,8 +24,8 @@
 			</view>
 			<!--底部-->
 			<view class='shop-foot'>
-				<label class="radio foot-radio">
-					<radio value="" color='#FF3333' /><text>全选</text>
+				<label class="radio foot-radio" @tap="checkedAllFn">
+					<radio value="" color='#FF3333' :checked="checkedAll" /><text>全选</text>
 				</label>
 				<view class='foot-total'>
 					<view class='foot-count'>合计：<text class='f-active-color'>¥0</text></view>
@@ -46,7 +46,9 @@
 <script>
 	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
 	import {
-		mapState
+		mapState,
+		mapActions,
+		mapGetters
 	} from "vuex"
 	export default {
 		data() {
@@ -57,9 +59,12 @@
 		computed: {
 			...mapState({
 				list: state => state.car.list
-			})
+			}),
+			...mapGetters(['checkedAll'])
 		},
 		methods: {
+			...mapActions(['checkedAllFn']),
+			// 全选
 			changeBtn(e) {
 				this.rightBtn = !this.rightBtn
 			}
