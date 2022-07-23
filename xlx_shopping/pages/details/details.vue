@@ -56,6 +56,7 @@
 					<view class="">
 						购买数量
 					</view>
+					<NumberBox></NumberBox>
 				</view>
 				<view class="pop-sub">
 					确定
@@ -69,6 +70,7 @@
 <script>
 	import Card from '@/components/common/commodity.vue'
 	import CommodityList from '@/components/common/commodityList.vue'
+	import NumberBox from '@/components/uni-number-box/uni-number-box.vue'
 	export default {
 		data() {
 			return {
@@ -121,7 +123,8 @@
 		},
 		components: {
 			Card,
-			CommodityList
+			CommodityList,
+			NumberBox
 		},
 		methods: {
 			hidePop() {
