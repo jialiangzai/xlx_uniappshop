@@ -151,6 +151,13 @@
 					this.isShow = true
 				}, 200)
 			}
+		},
+		// 在弹层出来的时候点击返回键关闭弹层而不是返回之前的页面
+		onBackPress(e) {
+			if (this.isShow) {
+				this.hidePop()
+				return
+			}
 		}
 	}
 </script>
