@@ -7,7 +7,7 @@
 			</uniNavBar>
 			<!--商品内容-->
 			<view class='shop-list'>
-				<view class='shop-item' v-for='(item,index) in list' :key='index'>
+				<view class='shop-item' v-for='(item,index) in list' :key='index' @tap="selectedItem(index)">
 					<label class="radio">
 						<radio value="" color="#FF3333" :checked="item.checked" /><text></text>
 					</label>
@@ -48,7 +48,8 @@
 	import {
 		mapState,
 		mapActions,
-		mapGetters
+		mapGetters,
+		mapMutations
 	} from "vuex"
 	export default {
 		data() {
@@ -64,6 +65,7 @@
 		},
 		methods: {
 			...mapActions(['checkedAllFn']),
+			...mapMutations(['selectedItem']),
 			// 全选
 			changeBtn(e) {
 				this.rightBtn = !this.rightBtn

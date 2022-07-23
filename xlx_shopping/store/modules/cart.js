@@ -87,9 +87,26 @@ export default {
 				v.checked = false;
 			})
 			state.selectedList = [];
+		},
+		// 单选
+		selectedItem(state, index) {
+			// 先根据索引找到商品再去更改
+			let id = state.list[index].id
+			// 查看一下选中数组中是否已经选中
+			let i = state.selectedList.indexOf(id)
+			if (i > -1) {
+				// 改为不选中
+				state.list[index].checked = false
+				return state.selectedList.splice(i, 1)
+			} else {
+				state.list[index].checked = true
+				// 添加到选中数组中
+				state.selectedList.push(id)
+			}
 		}
 	},
 	actions: {
+		// 全选
 		checkedAllFn({
 			commit,
 			getters
@@ -99,5 +116,7 @@ export default {
 			// getters.checkedAll ? '不全':'全选'
 			getters.checkedAll ? commit("unCheckAll") : commit("checkAll");
 		}
-	}
+	},
+	// 单选
+
 }
