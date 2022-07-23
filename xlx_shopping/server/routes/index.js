@@ -7,6 +7,20 @@ router.get('/', function(req, res, next) {
 		title: 'Express'
 	});
 });
+// 商品分享前提商品详情页
+router.get('/api/goods/id', function(req, res, next) {
+
+	let id = req.query.id
+
+	connection.query("select * from good_search where id=" + id + "", function(error, results, fields) {
+		if (error) throw error;
+		res.send({
+			code: "0",
+			data: results
+		})
+	});
+
+});
 // 列表
 router.get('/api/goods/list', function(req, res, next) {
 	res.json({

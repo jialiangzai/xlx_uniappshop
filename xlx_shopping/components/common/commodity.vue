@@ -2,7 +2,7 @@
 	<view class="commodity" :style="'flex-wrap:'+wrap+';'">
 		<!-- 单个商品组件 -->
 		<view class="commodity-item" v-for="(item,index) in dataList" :key="item.id" :style="'width:'+itemWidth+';'"
-			@tap="goDetail(item)">
+			@tap="goDetail(item.id)">
 			<img :src="item.imgUrl" alt="" :style="'height:'+itemHeigth+';'">
 			<view class="commodity-content">
 				<text class="commodity-name" :style="'font-size:'+ nameSize +';'">{{item.name}}</text>
@@ -47,9 +47,9 @@
 			}
 		},
 		methods: {
-			goDetail() {
+			goDetail(id) {
 				uni.navigateTo({
-					url: '/pages/details/details'
+					url: `/pages/details/details?id=${id}`
 				})
 			}
 		},
