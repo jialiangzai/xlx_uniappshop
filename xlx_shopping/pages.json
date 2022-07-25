@@ -158,6 +158,23 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/my-add-page/my-add-page",
+			"style": {
+				"navigationBarTitleText": "添加收货地址",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"scrollIndicator": "none",
+					"titleNView": {
+						"buttons": [{
+							"float": "right",
+							"text": "保存",
+							"fontSize": "16px"
+						}]
+					}
+				}
+			}
+
 		}
 	],
 	"globalStyle": {
