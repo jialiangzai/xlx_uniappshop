@@ -124,6 +124,11 @@ export default {
 			state.list = state.list.filter(v => {
 				return state.selectedList.indexOf(v.id) === -1
 			})
+		},
+		// 添加商品到购物车
+		addCart(state, goods) {
+			// 判断商品是否已经存在购物车中
+			state.list.push(goods)
 		}
 	},
 	actions: {

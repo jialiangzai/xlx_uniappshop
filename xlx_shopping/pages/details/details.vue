@@ -38,7 +38,7 @@
 		<!-- 底部 -->
 		<view class="details-foot">
 			<view class="aad icon-message"></view>
-			<view class="aad icon-shopping-cart"></view>
+			<view class="aad icon-shopping-cart" @tap="goShopCar"></view>
 			<view class="add-shopcart" @tap='showPop'>加入购物车</view>
 			<view class="purchase" @tap='showPop'>立即购买</view>
 		</view>
@@ -50,15 +50,15 @@
 			<!--内容块-->
 			<view class='pop-box' :animation="animationData">
 				<view>
-					<image class='pop-img' src="../../static/img/detail1.jpg" mode=""></image>
+					<image class='pop-img' :src="goodsContent.imgUrl" mode=""></image>
 				</view>
 				<view class="pop-num">
 					<view class="">
 						购买数量
 					</view>
-					<NumberBox></NumberBox>
+					<NumberBox :value="num" :min="1" @change="changeNum"></NumberBox>
 				</view>
-				<view class="pop-sub">
+				<view class="pop-sub" @tap="addCar">
 					确定
 				</view>
 			</view>
@@ -72,9 +72,13 @@
 	import Card from '@/components/common/commodity.vue'
 	import CommodityList from '@/components/common/commodityList.vue'
 	import NumberBox from '@/components/uni-number-box/uni-number-box.vue'
+	import {
+		mapMutations
+	} from "vuex"
 	export default {
 		data() {
 			return {
+				num: 1,
 				goodsContent: {},
 				isShow: false,
 				animationData: {},
@@ -153,6 +157,23 @@
 			this.getDate(e.id)
 		},
 		methods: {
+			...mapMutations(['addCart']),
+			addCar() {
+				let goods = this.goodsContent
+				// console.log(goods);
+				this.goodsContent['checked'] = false
+				this.goodsContent['num'] = this.num
+				this.addCart(goods)
+				uni.showToast({
+					title: '添加成功',
+				})
+				this.hidePop()
+			},
+			goShopCar() {
+				uni.switchTab({
+					url: '/pages/cart/cart'
+				})
+			},
 			async getDate(id) {
 				try {
 
@@ -194,6 +215,9 @@
 					this.animationData = animation.export()
 					this.isShow = true
 				}, 200)
+			},
+			changeNum(val) {
+				this.num = val
 			}
 		},
 		// 在弹层出来的时候点击返回键关闭弹层而不是返回之前的页面
