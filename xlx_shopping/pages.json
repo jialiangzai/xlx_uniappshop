@@ -49,7 +49,10 @@
 			"path": "pages/my/my",
 			"style": {
 				"navigationBarTitleText": "个人中心",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 
 		}, {
@@ -138,6 +141,21 @@
 						]
 					}
 				}
+			}
+
+		}, {
+			"path": "pages/my-config/my-config",
+			"style": {
+				"navigationBarTitleText": "设置",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/my-path-list/my-path-list",
+			"style": {
+				"navigationBarTitleText": "地址管理",
+				"enablePullDownRefresh": false
 			}
 
 		}
