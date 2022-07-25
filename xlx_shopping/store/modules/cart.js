@@ -118,6 +118,12 @@ export default {
 				// 添加到选中数组中
 				state.selectedList.push(id)
 			}
+		},
+		// 删除
+		delgoods(state) {
+			state.list = state.list.filter(v => {
+				return state.selectedList.indexOf(v.id) === -1
+			})
 		}
 	},
 	actions: {
@@ -130,8 +136,16 @@ export default {
 			// 全选前判断---三则返回的是后续做的
 			// getters.checkedAll ? '不全':'全选'
 			getters.checkedAll ? commit("unCheckAll") : commit("checkAll");
+		},
+		// 删除
+		delgoodsFn({
+			commit
+		}) {
+			commit('delgoods')
+			uni.showToast({
+				title: '删除成功',
+			})
 		}
-	},
-	// 单选
 
+	}
 }

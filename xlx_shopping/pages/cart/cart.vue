@@ -7,8 +7,8 @@
 			</uniNavBar>
 			<!--商品内容-->
 			<view class='shop-list'>
-				<view class='shop-item' v-for='(item,index) in list' :key='index' @tap="selectedItem(index)">
-					<label class="radio">
+				<view class='shop-item' v-for='(item,index) in list' :key='index'>
+					<label class="radio" @tap="selectedItem(index)">
 						<radio value="" color="#FF3333" :checked="item.checked" /><text></text>
 					</label>
 					<image class='shop-img' :src="item.imgUrl" mode=""></image>
@@ -17,7 +17,13 @@
 						<view class='shop-color f-color'>{{item.color}}</view>
 						<view class='shop-price'>
 							<view>¥{{item.pprice}}</view>
-							<view>*{{item.num}}</view>
+							<!-- 编辑状态处理 -->
+							<template v-if="!rightBtn">
+								<view>*{{item.num}}</view>
+							</template>
+							<template v-else>
+								<NumberBox :value="item.num" :min="1" @change="changNumber($event,index)"></NumberBox>
+							</template>
 						</view>
 					</view>
 				</view>
@@ -27,11 +33,23 @@
 				<label class="radio foot-radio" @tap="checkedAllFn">
 					<radio value="" color='#FF3333' :checked="checkedAll" /><text>全选</text>
 				</label>
-				<view class='foot-total'>
-					<view class='foot-count'>合计：<text class='f-active-color'>¥{{(totalCount.pprice).toFixed(2)}}</text>
+				<template v-if="!rightBtn">
+					<view class='foot-total'>
+						<view class='foot-count'>合计：<text
+								class='f-active-color'>¥{{(totalCount.pprice).toFixed(2)}}</text>
+						</view>
+						<view class='foot-num'>结算({{totalCount.num}})</view>
 					</view>
-					<view class='foot-num'>结算({{totalCount.num}})</view>
-				</view>
+				</template>
+
+				<template v-else>
+					<view class='foot-total'>
+						<view class='foot-count' style="background-color: #000; color:#fff">移入收藏夹
+						</view>
+						<view class='foot-num' @click="delgoodsFn">删除</view>
+					</view>
+				</template>
+
 			</view>
 		</template>
 		<template v-else>
@@ -46,6 +64,7 @@
 
 <script>
 	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
+	import NumberBox from '@/components/uni-number-box/uni-number-box.vue'
 	import {
 		mapState,
 		mapActions,
@@ -65,15 +84,21 @@
 			...mapGetters(['checkedAll', 'totalCount'])
 		},
 		methods: {
-			...mapActions(['checkedAllFn']),
+			...mapActions(['checkedAllFn', 'delgoodsFn']),
 			...mapMutations(['selectedItem']),
 			// 全选
 			changeBtn(e) {
 				this.rightBtn = !this.rightBtn
-			}
+			},
+			// 编辑状态下的数字
+			changNumber(v, i) {
+				// console.log(v, i);
+				this.list[i].num = v
+			},
 		},
 		components: {
-			uniNavBar
+			uniNavBar,
+			NumberBox
 		},
 	}
 </script>
