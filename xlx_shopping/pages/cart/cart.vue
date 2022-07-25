@@ -28,8 +28,9 @@
 					<radio value="" color='#FF3333' :checked="checkedAll" /><text>全选</text>
 				</label>
 				<view class='foot-total'>
-					<view class='foot-count'>合计：<text class='f-active-color'>¥0</text></view>
-					<view class='foot-num'>结算(0)</view>
+					<view class='foot-count'>合计：<text class='f-active-color'>¥{{(totalCount.pprice).toFixed(2)}}</text>
+					</view>
+					<view class='foot-num'>结算({{totalCount.num}})</view>
 				</view>
 			</view>
 		</template>
@@ -61,7 +62,7 @@
 			...mapState({
 				list: state => state.car.list
 			}),
-			...mapGetters(['checkedAll'])
+			...mapGetters(['checkedAll', 'totalCount'])
 		},
 		methods: {
 			...mapActions(['checkedAllFn']),

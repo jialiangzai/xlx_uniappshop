@@ -20,7 +20,7 @@ export default {
 			},
 			{
 				checked: false,
-				id: 2,
+				id: 3,
 				name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
 				color: "颜色：返回对方的过分的",
 				imgUrl: "../../static/img/Children2.jpg",
@@ -29,7 +29,7 @@ export default {
 			},
 			{
 				checked: false,
-				id: 2,
+				id: 4,
 				name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
 				color: "颜色：返回对方的过分的",
 				imgUrl: "../../static/img/Children2.jpg",
@@ -38,7 +38,7 @@ export default {
 			},
 			{
 				checked: false,
-				id: 2,
+				id: 5,
 				name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
 				color: "颜色：返回对方的过分的",
 				imgUrl: "../../static/img/Children2.jpg",
@@ -47,7 +47,7 @@ export default {
 			},
 			{
 				checked: false,
-				id: 2,
+				id: 6,
 				name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
 				color: "颜色：返回对方的过分的",
 				imgUrl: "../../static/img/Children2.jpg",
@@ -56,7 +56,7 @@ export default {
 			},
 			{
 				checked: false,
-				id: 2,
+				id: 7,
 				name: "打客服的和非恶搞认为微软业务打客服的和非恶搞认为微软业务",
 				color: "颜色：返回对方的过分的",
 				imgUrl: "../../static/img/Children2.jpg",
@@ -70,6 +70,21 @@ export default {
 		// 判断是否全选 -- - 
 		checkedAll(state) {
 			return state.list.length === state.selectedList.length
+		},
+		// 合计加结算
+		totalCount(state) {
+			let total = {
+				pprice: 0,
+				num: 0
+			}
+			state.list.forEach(v => {
+				// 是否
+				if (state.selectedList.indexOf(v.id) > -1) {
+					total.pprice += v.pprice * v.num
+					total.num = state.selectedList.length
+				}
+			})
+			return total
 		}
 	},
 	mutations: {
