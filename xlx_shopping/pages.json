@@ -226,6 +226,17 @@
 				}
 			}
 
+		}, {
+			"path": "pages/login-tel/login-tel",
+			"style": {
+				"navigationBarTitleText": "手机号注册",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
+			}
+
 		}
 	],
 	"globalStyle": {
