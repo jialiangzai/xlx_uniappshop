@@ -102,7 +102,7 @@
 				this.$refs.mpvueCityPicker.show();
 			},
 			onConfirm(e) {
-				this.cityName = e.label;
+				this.pramObj.city = e.label;
 			}
 		}
 	}
