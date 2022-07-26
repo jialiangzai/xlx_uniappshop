@@ -147,7 +147,8 @@
 			"path": "pages/my-config/my-config",
 			"style": {
 				"navigationBarTitleText": "设置",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
 			}
 
 		},
@@ -155,7 +156,8 @@
 			"path": "pages/my-path-list/my-path-list",
 			"style": {
 				"navigationBarTitleText": "地址管理",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
 			}
 
 		}, {
@@ -175,12 +177,28 @@
 				}
 			}
 
+		}, {
+			"path": "pages/my-order/my-order",
+			"style": {
+				"navigationBarTitleText": "全部订单",
+				"navigationBarBackgroundColor": "#fff",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/confirm-order/confirm-order",
+			"style": {
+				"navigationBarTitleText": "确认订单",
+				"navigationBarBackgroundColor": "#fff",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	    ,{
-            "path" : "pages/my-order/my-order",
+            "path" : "pages/payment/payment",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "全部订单",
+                "navigationBarTitleText": "支付",
                 "enablePullDownRefresh": false
             }
             

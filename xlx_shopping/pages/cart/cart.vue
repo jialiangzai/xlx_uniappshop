@@ -38,7 +38,7 @@
 						<view class='foot-count'>合计：<text
 								class='f-active-color'>¥{{(totalCount.pprice).toFixed(2)}}</text>
 						</view>
-						<view class='foot-num'>结算({{totalCount.num}})</view>
+						<view class='foot-num' @tap="goConfirmOrder">结算({{totalCount.num}})</view>
 					</view>
 				</template>
 
@@ -95,6 +95,11 @@
 				// console.log(v, i);
 				this.list[i].num = v
 			},
+			goConfirmOrder() {
+				uni.navigateTo({
+					url: '/pages/confirm-order/confirm-order'
+				})
+			}
 		},
 		components: {
 			uniNavBar,
