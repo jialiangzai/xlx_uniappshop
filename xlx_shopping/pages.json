@@ -204,6 +204,18 @@
 				}
 			}
 
+		},
+		{
+			"path": "pages/payment-success/payment-success",
+			"style": {
+				"navigationBarTitleText": "支付成功",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
+			}
+
 		}
 	],
 	"globalStyle": {
