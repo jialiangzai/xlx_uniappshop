@@ -2,14 +2,17 @@
 	<view class='my-path-list'>
 
 		<view class='path-list'>
-			<view class='path-item'>
+			<view class='path-item' v-for="(item,index) in list" :key="index">
 				<view class='item-main'>
-					<view class='item-name'>张三</view>
-					<view>18511773322</view>
+					<view class='item-name'>{{item.name}}</view>
+					<view>{{item.tel}}</view>
 				</view>
 				<view class='item-main'>
-					<view class='active'>默认</view>
-					<view>北京市海淀区上地办公中心xxxx</view>
+					<view :class="item.isDefault?'active':''">{{item.isDefault?'默认':''}}</view>
+					<view>
+						{{item.city}}
+					</view>
+					<view>{{item.details}}</view>
 				</view>
 			</view>
 		</view>
@@ -22,12 +25,23 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from "vuex"
+
 	export default {
 		data() {
 			return {
 
 			}
 		},
+
+		computed: {
+			...mapState({
+				list: state => state.path.list
+			})
+		},
+
 		methods: {
 			goAddPath() {
 				uni.navigateTo({
