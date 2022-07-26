@@ -15,7 +15,7 @@
 		</view>
 		<!--我的订单-->
 		<view class='order'>
-			<view class='order-title'>
+			<view class='order-title' @tap="goMyOrder">
 				<view>我的订单</view>
 				<view>全部订单 > </view>
 			</view>
@@ -86,6 +86,11 @@
 			}
 		},
 		methods: {
+			goMyOrder() {
+				uni.navigateTo({
+					url: '/pages/my-order/my-order'
+				})
+			},
 			goConfig() {
 				uni.navigateTo({
 					url: '/pages/my-config/my-config'
