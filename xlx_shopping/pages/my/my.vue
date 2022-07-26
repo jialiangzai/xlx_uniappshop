@@ -7,7 +7,7 @@
 					<!-- <img class='config-img' src="../../static/img/config.png" mode=""></img> -->
 					设置
 				</view>
-				<view class='header-logo'>
+				<view class='header-logo' @tap="goLogin">
 					<img class='logo-img' src="../../static/img/Children1.jpg" mode=""></img>
 					<view class='logo-name'>用户昵称</view>
 				</view>
@@ -86,6 +86,11 @@
 			}
 		},
 		methods: {
+			goLogin() {
+				uni.navigateTo({
+					url: '/pages/login/login'
+				})
+			},
 			goMyOrder() {
 				uni.navigateTo({
 					url: '/pages/my-order/my-order'
@@ -122,7 +127,7 @@
 		position: absolute;
 		left: 50%;
 		margin-left: -60rpx;
-		width: 120rpx;
+		width: 140rpx;
 	}
 
 	.config-img {
