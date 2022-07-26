@@ -1,24 +1,24 @@
 <template>
 	<view class='my-path-list'>
-
 		<view class='path-list'>
-			<view class='path-item' v-for="(item,index) in list" :key="index" @tap="toAddPath(index)">
-				<view class='item-main'>
-					<view class='item-name'>{{item.name}}</view>
-					<view>{{item.tel}}</view>
-				</view>
-				<view class='item-main'>
-					<view :class="item.isDefault?'active':''">{{item.isDefault?'默认':''}}</view>
-					<view>
-						{{item.city}}
+
+			<view v-for='(item,index) in list' :key='index' @tap='toAddPath(index)'>
+				<view class='path-item' @tap='goConfirmOrder(item)'>
+					<view class='item-main'>
+						<view class='item-name'>{{item.name}}</view>
+						<view>{{item.tel}}</view>
 					</view>
-					<view>{{item.details}}</view>
+					<view class='item-main'>
+						<view class='active' v-if='item.isDefault'>默认</view>
+						<view>{{item.city}} {{item.details}}</view>
+					</view>
 				</view>
 			</view>
+
 		</view>
 
 		<view class='add-path'>
-			<view class='add-path-btn' @tap="goAddPath">新增地址</view>
+			<view class='add-path-btn' @tap='goAddPath'>新增地址</view>
 		</view>
 
 	</view>
@@ -27,36 +27,53 @@
 <script>
 	import {
 		mapState
-	} from "vuex"
-
+	} from 'vuex'
 	export default {
 		data() {
 			return {
-
+				isSelectedPath: false
 			}
 		},
-
 		computed: {
 			...mapState({
 				list: state => state.path.list
 			})
 		},
-
+		onLoad(e) {
+			if (e.type === 'selectedPath') {
+				this.isSelectedPath = true;
+			}
+		},
 		methods: {
-			// 修改地址
+			//修改
 			toAddPath(index) {
+
 				let pathObj = JSON.stringify({
-					index,
+					index: index,
 					item: this.list[index]
 				})
 				uni.navigateTo({
-					url: `/pages/my-add-page/my-add-page?data=${pathObj}`
+					url: "../my-add-path/my-add-path?data=" + pathObj + ""
 				})
+
 			},
+			//新增
 			goAddPath() {
 				uni.navigateTo({
-					url: '/pages/my-add-page/my-add-page'
+					url: "../my-add-path/my-add-path"
 				})
+			},
+			//返回确认订单页面
+			goConfirmOrder(item) {
+				//如果是从确认订单过来的执行以下代码:
+				if (this.isSelectedPath) {
+					//自定义事件：页面通讯
+					uni.$emit('selectPathItem', item);
+					//返回上一页
+					uni.navigateBack({
+						delta: 1
+					})
+				}
 			}
 		}
 	}
@@ -91,7 +108,7 @@
 	}
 
 	.add-path {
-		padding: 20rpx 0;
+		padding: 20rpx;
 		width: 100%;
 		display: flex;
 		justify-content: center;

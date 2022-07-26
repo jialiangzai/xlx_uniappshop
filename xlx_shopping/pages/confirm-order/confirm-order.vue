@@ -52,6 +52,7 @@
 
 	</view>
 </template>
+
 <script>
 	import Lines from "@/components/lines/lines.vue"
 	import {
@@ -62,6 +63,28 @@
 			return {
 				path: false
 			}
+		},
+		computed: {
+			...mapGetters(['defaultPath'])
+		},
+		onLoad() {
+			//如果有默认地址的一个赋值
+			// if (this.defaultPath.length) {
+			// 	this.path = this.defaultPath[0];
+			// }
+
+			//如果出发自定义事件，on去接受值
+			uni.$on("selectPathItem", (res) => {
+				this.path = res;
+			})
+		},
+		onUnload() {
+			uni.$off('selectPathItem', () => {
+				console.log('移除了selectPathItem');
+			})
+		},
+		components: {
+			Lines
 		},
 		methods: {
 			//跳转到地址管理页面
@@ -76,33 +99,7 @@
 					url: '../payment/payment'
 				})
 			}
-		},
-		components: {
-			Lines
-		},
-		computed: {
-			...mapGetters(['defaultPath'])
-		},
-		onLoad() {
-			setTimeout(() => {
-				//如果有默认地址的一个赋值
-				if (this.defaultPath.length) {
-					console.log('this.defaultPath.length');
-					this.path = this.defaultPath[0];
-				}
-
-				//如果出发自定义事件，on去接受值
-				uni.$on("selectPathItem", (res) => {
-					this.path = res;
-				})
-			}, 0)
-
-		},
-		onUnload() {
-			uni.$off('selectPathItem', () => {
-				console.log('移除了selectPathItem');
-			})
-		},
+		}
 	}
 </script>
 
