@@ -84,15 +84,19 @@
 			...mapGetters(['defaultPath'])
 		},
 		onLoad() {
-			//如果有默认地址的一个赋值
-			if (this.defaultPath.length) {
-				this.path = this.defaultPath[0];
-			}
+			setTimeout(() => {
+				//如果有默认地址的一个赋值
+				if (this.defaultPath.length) {
+					console.log('this.defaultPath.length');
+					this.path = this.defaultPath[0];
+				}
 
-			//如果出发自定义事件，on去接受值
-			uni.$on("selectPathItem", (res) => {
-				this.path = res;
-			})
+				//如果出发自定义事件，on去接受值
+				uni.$on("selectPathItem", (res) => {
+					this.path = res;
+				})
+			}, 0)
+
 		},
 		onUnload() {
 			uni.$off('selectPathItem', () => {

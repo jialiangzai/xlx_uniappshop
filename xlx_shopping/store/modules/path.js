@@ -16,7 +16,11 @@ export default {
 			}
 		]
 	},
-	getter: {},
+	getter: {
+		defaultPath(state) {
+			return state.list.filter(v => v.isDefault)
+		}
+	},
 	mutations: {
 		// 默认地址处理
 		removePath(state) {
