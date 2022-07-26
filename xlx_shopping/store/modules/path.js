@@ -21,12 +21,25 @@ export default {
 		createPath(state, obj) {
 			state.list.unshift(obj)
 		},
+		updatePath(state, {
+			item,
+			index
+		}) {
+			for (let key in item) {
+				state.list[index][key] = item[key]
+			}
+		}
 	},
 	actions: {
 		createPathFn({
 			commit
 		}, obj) {
 			commit('createPath', obj)
+		},
+		updatePathFn({
+			commit
+		}, obj) {
+			commit('updatePath', obj)
 		}
 	}
 }

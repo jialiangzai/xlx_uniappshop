@@ -50,24 +50,48 @@
 					details: '',
 					isDefault: false
 				},
-				isDefault: false
+				i: -1,
+				// 是否修改状态
+				isStatus: false
+			}
+		},
+		onLoad(e) {
+			if (e.data) {
+				uni.setNavigationBarTitle({
+					title: '修改地址'
+				})
+				let res = JSON.parse(e.data)
+				this.pramObj = res.item
+				this.i = res.index,
+					this.isStatus = true
 			}
 		},
 		onNavigationBarButtonTap(e) {
 			// console.log(e);
-			if (e.float == "right") {
+			if (this.isStatus) {
+				// 修改
+				this.updatePathFn({
+					index: this.i,
+					item: this.pramObj
+				})
+				uni.navigateBack({
+					delta: 1
+				});
+			} else {
+				// 新增
 				this.createPathFn(this.pramObj)
+				// 在C页面内 navigateBack，将返回A页面
+				uni.navigateBack({
+					delta: 1
+				});
 			}
-			// 在C页面内 navigateBack，将返回A页面
-			uni.navigateBack({
-				delta: 1
-			});
+
 		},
 		components: {
 			mpvueCityPicker
 		},
 		methods: {
-			...mapActions(['createPathFn']),
+			...mapActions(['createPathFn', 'updatePathFn']),
 			showCityPicker() {
 				this.$refs.mpvueCityPicker.show();
 			},
