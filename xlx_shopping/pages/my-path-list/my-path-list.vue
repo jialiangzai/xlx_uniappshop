@@ -18,7 +18,7 @@
 		</view>
 
 		<view class='add-path'>
-			<view class='add-path-btn' @tap='goAddPath'>新增地址</view>
+			<view class='add-path-btn' @tap="goAddPath">新增地址</view>
 		</view>
 
 	</view>

@@ -161,7 +161,7 @@
 			}
 
 		}, {
-			"path": "pages/my-add-page/my-add-page",
+			"path": "pages/my-add-path/my-add-path",
 			"style": {
 				"navigationBarTitleText": "添加收货地址",
 				"enablePullDownRefresh": false,
@@ -193,17 +193,19 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/payment/payment",
+			"style": {
+				"navigationBarTitleText": "支付",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"scrollIndicator": "none",
+					"titleNView": false
+				}
+			}
+
 		}
-	    ,{
-            "path" : "pages/payment/payment",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "支付",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
