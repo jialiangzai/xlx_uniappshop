@@ -13,7 +13,7 @@
 
 		<view class='path-item'>
 			<view>所在地址</view>
-			<view @tap='showCityPicker'>{{cityName}} > </view>
+			<view @tap='showCityPicker'>{{pramObj.city}} > </view>
 			<mpvue-city-picker ref="mpvueCityPicker" :pickerValueDefault="pickerValueDefault" @onConfirm="onConfirm">
 			</mpvue-city-picker>
 		</view>
@@ -25,9 +25,12 @@
 
 		<view class='path-item'>
 			<view>设为默认地址</view>
-			<label class="radio">
-				<checkbox value="" color="#FF3333" :checked="pramObj.isDefault" /><text></text>
-			</label>
+			<radio-group name="" @change="radioChang">
+				<label class="radio">
+					<radio color="#FF3333" :checked="pramObj.isDefault" /><text></text>
+				</label>
+			</radio-group>
+
 		</view>
 
 	</view>
@@ -92,6 +95,9 @@
 		},
 		methods: {
 			...mapActions(['createPathFn', 'updatePathFn']),
+			radioChang() {
+				this.pramObj.isDefault = !this.pramObj.isDefault
+			},
 			showCityPicker() {
 				this.$refs.mpvueCityPicker.show();
 			},
