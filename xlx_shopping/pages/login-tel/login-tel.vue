@@ -66,7 +66,7 @@
                     return
                   } else{
                     uni.navigateTo({
-                    	url:"../login-code/login-code"
+                    	url:`../login-code/login-code?phone=${this.userTel}`
                     })
                   }
         					

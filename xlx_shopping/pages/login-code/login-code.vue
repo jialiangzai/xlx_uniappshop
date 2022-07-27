@@ -18,6 +18,8 @@
 
 <script>
 	import Lines from '@/components/lines/lines.vue'
+  import $http from "@/common/api/request.js"
+  
 	export default {
 		data() {
 			return {
@@ -28,12 +30,16 @@
 				//按钮是否禁用
 				disabled:false,
 				//用户输入的内容
-				userCode:''
+				userCode:'',
+        phone:''
 			}
 		},
 		components:{
 			Lines
 		},
+    onLoad(e) {
+      this.phone = e.phone
+    },
 		onReady() {
 			this.codeMsg = `重新发送${this.codeNum}`;
 			this.sendCode();
@@ -41,6 +47,22 @@
 		methods: {
 			//点击验证码发送
 			sendCode(){
+        $http.request({
+          					url:"/api/code",
+          					method:"POST",
+          					data:{
+          						userName:this.phone,
+          					}
+          				}).then((res)=>{
+          					uni.hideLoading();
+                  
+          					
+          				}).catch(()=>{
+          					uni.showToast({
+          						title:'失败',
+          						icon:'none'
+          					})
+          				})
 				this.disabled = true;
 				let timer = setInterval(()=>{
 					--this.codeNum;
@@ -51,7 +73,7 @@
 					this.codeNum=10;
 					this.disabled = false;
 					this.codeMsg = '重新发送';
-				},10000)
+				},60000)
 			},
 			//点击下一步
 			goNextIndex(){
