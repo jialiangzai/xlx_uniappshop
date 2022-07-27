@@ -55,7 +55,7 @@
 			},
 			//点击下一步
 			goNextIndex(){
-				uni.switchTab({
+				uni.reLaunch({
 					url:"../index/index"
 				})
 			}

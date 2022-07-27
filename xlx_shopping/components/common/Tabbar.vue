@@ -54,7 +54,11 @@ export default{
 	methods:{
 		navigatorTo(e){
 			if(  e==='cart'  ||  e==='my' ){
-				console.log('验证一下');
+				// console.log('验证一下');
+        this.navigateTo({
+          url:`/page/${e}/${e}`,
+          animationDuration:0
+        })
 			}else{
 				uni.redirectTo({
 					url:`../../pages/${e}/${e}`

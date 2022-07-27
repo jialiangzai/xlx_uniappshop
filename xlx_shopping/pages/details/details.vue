@@ -171,7 +171,7 @@
 				this.hidePop()
 			},
 			goShopCar() {
-				uni.switchTab({
+				uni.reLaunch({
 					url: '/pages/cart/cart'
 				})
 			},

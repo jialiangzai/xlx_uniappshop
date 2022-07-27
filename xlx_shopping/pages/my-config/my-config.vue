@@ -23,7 +23,7 @@
       ...mapMutations(['loginOut']),
       loginOutFn(){
         this.loginOut()
-        uni.switchTab({
+        uni.reLaunch({
           url:'../index/index'
         })
      },

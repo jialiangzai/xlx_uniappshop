@@ -124,7 +124,7 @@ $http.request({
 						icon:"none"
 					})
 					uni.hideLoading();
-				uni.switchTab({
+				uni.reLaunch({
 				  url:'/pages/my/my'
 				})
 					

@@ -14,7 +14,7 @@
 		},
 		methods: {
 			goIndex() {
-				uni.switchTab({
+				uni.reLaunch({
 					url: "../index/index"
 				})
 			}
