@@ -108,6 +108,7 @@
 		<!-- 推荐店铺 -->
 		<!-- <Card cardTitle="推荐店铺"></Card> -->
 		<!-- <Shop></Shop> -->
+    <Tabbar currentPage="index"></Tabbar>
 	</view>
 </template>
 
@@ -121,6 +122,7 @@
 	import Icons from '@/components/index/Icons.vue'
 	import Hot from '@/components/index/Hot.vue'
 	import Shop from '@/components/index/Shop.vue'
+  import Tabbar from '@/components/common/Tabbar.vue'
 	export default {
 		data() {
 			return {
@@ -142,7 +144,8 @@
 			Banner,
 			Icons,
 			Hot,
-			Shop
+			Shop,
+      Tabbar
 		},
 		onLoad() {
 			this.initHome()
@@ -162,6 +165,7 @@
 				success: (res) => {
 					console.log(res);
 					this.clentHeight = res.windowHeight - uni.upx2px(80) - this.getClientHeight()
+					// this.clentHeight = res.windowHeight - uni.upx2px(80) - this.getClientHeight()
 				}
 			})
 			// let view = uni.createSelectorQuery().select(".home-data")

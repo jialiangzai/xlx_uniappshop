@@ -27,12 +27,15 @@
 				</view>
 			</scroll-view>
 		</view>
+    <Tabbar currentPage="list"></Tabbar>
 	</view>
 </template>
 
 <script>
 	import $http from '@/common/api/request.js'
 	import Lines from '@/components/lines/lines.vue'
+  import Tabbar from '@/components/common/Tabbar.vue'
+  
 	export default {
 		data() {
 			return {
@@ -102,7 +105,8 @@
 			}
 		},
 		components: {
-			Lines
+			Lines,
+      Tabbar
 		},
 		onNavigationBarSearchInputClicked() {
 			uni.navigateTo({
