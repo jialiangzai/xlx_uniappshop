@@ -63,7 +63,8 @@
 </template>
 
 <script>
-	import $http from '@/common/api/request.js'
+	// import $http from '@/common/api/request.js'
+  import $http from "@/common/api/request.js"
 	import LoginOther from '@/components/login-other/login-other.vue'
 	import {
 		mapMutations
@@ -72,8 +73,8 @@
 		data() {
 			return {
 				//用户输入的内容
-				userName: "",
-				userPwd: "",
+				userName: "zhangsan",
+				userPwd: "123456",
 				//验证的规格
 				rules: {
 					userName: {
@@ -107,30 +108,30 @@
 					title: "登录中..."
 				})
 
-				$http.request({
-					url: "/login",
-					method: "POST",
-					data: {
-						userName: this.userName,
-						userPwd: this.userPwd
+$http.request({
+					url:"/api/login",
+					method:"POST",
+					data:{
+						userName:this.userName,
+						userPwd:this.userPwd
 					}
-				}).then((res) => {
-
+				}).then((res)=>{
+					
 					//保存用户信息
 					this.login(res.data);
 					uni.showToast({
-						title: res.msg,
-						icon: "none"
+						title:res.msg,
+						icon:"none"
 					})
 					uni.hideLoading();
-					uni.navigateBack({
-						delta: 1
-					})
-
-				}).catch(() => {
+				uni.switchTab({
+				  url:'/pages/my/my'
+				})
+					
+				}).catch(()=>{
 					uni.showToast({
-						title: '请求失败',
-						icon: 'none'
+						title:'12233',
+						icon:'none'
 					})
 				})
 

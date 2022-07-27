@@ -6,12 +6,13 @@
 			<view class='config-mark'> > </view>
 		</view>
 
-		<view class='my-exit'>退出</view>
+		<view class='my-exit'  @tap="loginOutFn">退出</view>
 
 	</view>
 </template>
 
 <script>
+  import {mapMutations} from "vuex"
 	export default {
 		data() {
 			return {
@@ -19,6 +20,13 @@
 			}
 		},
 		methods: {
+      ...mapMutations(['loginOut']),
+      loginOutFn(){
+        this.loginOut()
+        uni.switchTab({
+          url:'../index/index'
+        })
+     },
 			goPathList() {
 				uni.navigateTo({
 					url: '/pages/my-path-list/my-path-list'

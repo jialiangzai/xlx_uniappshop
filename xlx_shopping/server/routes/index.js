@@ -17,8 +17,10 @@ router.post('/api/login', function(req, res, next) {
 		userName : req.body.userName,
 		userPwd  : req.body.userPwd
 	}
+  console.log(params);
 	//查询用户名或者手机号存在不存在
 	 connection.query( user.queryUserName( params ) , function (error, results, fields) {
+     console.log(results);
 		if( results.length > 0 ){
 			 connection.query( user.queryUserPwd( params ) , function (err, result) {
 				 if(  result.length > 0 ){

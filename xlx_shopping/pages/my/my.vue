@@ -8,8 +8,10 @@
 					设置
 				</view>
 				<view class='header-logo' @tap="goLogin">
-					<img class='logo-img' src="../../static/img/Children1.jpg" mode=""></img>
-					<view class='logo-name'>用户昵称</view>
+		<image class='logo-img' :src=" loginStatus ? userInfo.imgUrl : '../../static/img/Children1.jpg' " mode=""></image>
+					<view class='logo-name'>
+						{{  loginStatus ? userInfo.nickName : "用户名称"   }}
+					</view>
 				</view>
 			</view>
 		</view>
@@ -79,12 +81,19 @@
 </template>
 
 <script>
+  	import {mapState} from 'vuex';
 	export default {
 		data() {
 			return {
 
 			}
 		},
+    computed:{
+    			...mapState({
+    				loginStatus:state=>state.use.loginStatus,
+    				userInfo:state=>state.use.userInfo
+    			})
+    		},
 		methods: {
 			goLogin() {
 				uni.navigateTo({
