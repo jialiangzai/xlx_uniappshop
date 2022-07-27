@@ -17,6 +17,7 @@
 
 <script>
 	import Lines from '@/components/lines/lines.vue'
+    import $http from "@/common/api/request.js"
 	export default {
 		data() {
 			return {
@@ -49,9 +50,34 @@
 			},
 			goNextCode(){
 				if(  !this.validate('userTel')  ) return;
-				uni.navigateTo({
-					url:"../login-code/login-code"
-				})
+        $http.request({
+        					url:"/api/registered",
+        					method:"POST",
+        					data:{
+        						phone:this.userTel,
+        					}
+        				}).then((res)=>{
+        					uni.hideLoading();
+                  if (!res.success) {
+                    uni.showToast({
+                      title:res.msg,
+                      icon:'none'
+                    })
+                    return
+                  } else{
+                    uni.navigateTo({
+                    	url:"../login-code/login-code"
+                    })
+                  }
+        					
+        				}).catch(()=>{
+        					uni.showToast({
+        						title:'失败',
+        						icon:'none'
+        					})
+        				})
+        
+				
 			}
 		}
 	}

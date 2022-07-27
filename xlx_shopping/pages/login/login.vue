@@ -130,7 +130,7 @@ $http.request({
 					
 				}).catch(()=>{
 					uni.showToast({
-						title:'12233',
+						title:'失败',
 						icon:'none'
 					})
 				})

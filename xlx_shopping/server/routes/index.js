@@ -8,7 +8,32 @@ router.get('/', function(req, res, next) {
 		title: 'Express'
 	});
 });
-
+//注册验证手机号是否存在
+router.post('/api/registered', function(req, res, next) {
+	
+	//前端给后端的数据
+	let params = {
+		userName : req.body.phone
+	};
+	//查询手机号是否存在
+	connection.query( user.queryUserName( params ) , function (error, results, fields) {
+		if( results.length > 0 ){
+			res.send({
+				data:{
+					success:false,
+					msg:"手机号已经存在"
+				}
+			})
+		}else{
+			res.send({
+				data:{
+					success:true
+				}
+			})
+		}
+	})
+	
+})
 //用户登录
 router.post('/api/login', function(req, res, next) {
 	
