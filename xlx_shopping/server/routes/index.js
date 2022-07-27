@@ -1,12 +1,54 @@
 var express = require('express');
 var connection = require('../db/sql');
 var router = express.Router();
+var  user = require('../db/userSql')
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('index', {
 		title: 'Express'
 	});
 });
+
+//用户登录
+router.post('/api/login', function(req, res, next) {
+	
+	//前端给后端的数据
+	let params = {
+		userName : req.body.userName,
+		userPwd  : req.body.userPwd
+	}
+	//查询用户名或者手机号存在不存在
+	 connection.query( user.queryUserName( params ) , function (error, results, fields) {
+		if( results.length > 0 ){
+			 connection.query( user.queryUserPwd( params ) , function (err, result) {
+				 if(  result.length > 0 ){
+					 res.send({
+					 	data:{
+					 		success:true,
+					 		msg:"登录成功",
+							data:result[0]
+					 	}
+					 })
+				 }else{
+					 res.send({
+						data:{
+							success:false,
+							msg:"密码不正确"
+						}
+					 })
+				 }
+			 })
+		}else{
+			res.send({
+				data:{
+					success:false,
+					msg:"用户名或手机号不存在"
+				}
+			})
+		}
+	 })
+});
+
 // 商品分享前提商品详情页
 router.get('/api/goods/id', function(req, res, next) {
 
