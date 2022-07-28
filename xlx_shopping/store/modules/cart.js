@@ -88,6 +88,9 @@ export default {
 		}
 	},
 	mutations: {
+		initGetData(state, list) {
+			state.list = list
+		},
 		//全选
 		checkAll(state) {
 			state.selectedList = state.list.map(v => {

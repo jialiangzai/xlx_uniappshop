@@ -27,6 +27,217 @@ router.get('/api/ceshi', function(req, res, next) {
 		}
 	})
 });
+
+//修改订单状态
+router.post('/api/submitOrder', function(req, res, next) {
+	let token = req.headers.token
+	let phone = jwt_decode(token)
+	//订单号
+	let orderId = req.body.orderId
+	//购物车中选中的商品
+	let shopArr = req.body.shopArr
+	connection.query(`select * from user where phone = ${phone.name}`, function(error, results, fields) {
+		//当前用户id
+		let userId = results[0].id
+		connection.query(`select * from store_order where uId = ${userId} and order_id = ${orderId}`,
+			function(err, result) {
+				//订单的id
+				let id = result[0].id
+				connection.query(
+					`update store_order set order_status = replace(order_status,'1','2') where id = ${id}`,
+					function() {
+						shopArr.forEach(v => {
+							connection.query(`delete from goods_cart where id = ${v}`,
+								function() {
+
+								})
+						})
+						res.send({
+							data: {
+								code: 200,
+								success: true
+							}
+						})
+					})
+			})
+	})
+})
+
+//生成订单
+router.post('/api/addOrder', function(req, res, next) {
+	let token = req.headers.token
+	let phone = jwt_decode(token)
+	//前端给后端传递的数据
+	let goodsArr = req.body.arr
+	//生成订单号
+	function setTimeDateFmt(s) {
+		return s < 10 ? '0' + s : s
+	}
+
+	function orderNumber() {
+		const now = new Date()
+		let fullYear = now.getFullYear()
+		let month = setTimeDateFmt(now.getMonth() + 1)
+		let day = setTimeDateFmt(now.getDate())
+		let hour = setTimeDateFmt(now.getHours())
+		let minutes = setTimeDateFmt(now.getMinutes())
+		let seconds = setTimeDateFmt(now.getSeconds())
+		let orderCode = fullYear + month + day + hour + minutes + seconds + (Math.round(Math.random() *
+			1000000))
+		return orderCode
+	}
+	//商品名称
+	let goodsName = []
+	//订单总价
+	let goodsPrice = 0
+	//订单商品总数量
+	let goodsNum = 0
+	//订单号
+	let orderId = orderNumber()
+
+	goodsArr.forEach(v => {
+		goodsName.push(v.name)
+		goodsNum += parseInt(v.num)
+		goodsPrice += v.num * v.pprice
+	})
+
+	connection.query(`select * from user where phone = ${phone.name}`, function(error, results, fields) {
+		//当前用户id
+		let userId = results[0].id
+		connection.query(
+			`insert into store_order (uId,order_id,goods_name,goods_price,goods_num,order_status) values ('${userId}','${orderId}','${goodsName}','${goodsPrice}','${goodsNum}','1')`,
+			function() {
+				connection.query(
+					`select * from store_order where uId = ${userId} and order_id = ${orderId}`,
+					function(err, result) {
+						res.send({
+							data: {
+								code: 200,
+								success: true,
+								data: result
+							}
+						})
+					})
+			})
+	})
+})
+
+//删除购物车商品数据
+router.post('/api/deleteCart', function(req, res, next) {
+	let goodsId = req.body.goodsId
+	console.log(goodsId)
+	for (var i = 0; i < goodsId.length; i++) {
+		connection.query(`delete from goods_cart where id=${goodsId[i]}`, function(e, r) {
+			res.json({
+				data: {
+					success: true
+				}
+			})
+		})
+	}
+})
+//加入购物车
+router.post('/api/addCart', function(req, res, next) {
+	let token = req.headers.token
+	let phone = jwt_decode(token)
+	//商品id
+	let goods_id = req.body.goods_id
+	//用户输入的商品数量
+	let num = req.body.num
+	connection.query(`select * from user where phone = ${phone.name}`, function(error, results, fields) {
+		//当前用户id
+		let userId = results[0].id
+		connection.query(`select * from goods_search where id = ${goods_id}`, function(err, result) {
+			let name = result[0].name
+			let imgUrl = result[0].imgUrl
+			let pprice = result[0].pprice
+			//查询当前用户之前是否添加过这个商品
+			connection.query(
+				`select * from goods_cart where uId = ${userId} and goods_id = ${goods_id}`,
+				function(err, data) {
+					if (data.length > 0) {
+						//如果当前用户已经添加过本商品,就让数量增加
+						connection.query(
+							`update goods_cart set num = replace(num,${data[0].num},${parseInt(num) + parseInt(data[0].num)}) where id = ${data[0].id}`,
+							function(e, r) {
+								res.json({
+									data: {
+										success: "加入成功"
+									}
+								})
+							})
+					} else {
+						//如果当前用户之前没有加入过本商品,需要添加进入
+						connection.query(
+							'insert into goods_cart (uId,goods_id,name,imgUrl,pprice,num) values ("' +
+							userId + '","' + goods_id + '","' + name + '","' + imgUrl +
+							'","' + pprice + '","' + num + '")',
+							function(err, data) {
+								res.json({
+									data: {
+										success: "加入成功"
+									}
+								})
+							})
+					}
+				})
+		})
+	})
+})
+
+//1. 当前用户
+//2. 当前用户--->哪一个商品的数量发展变化  [查询]   原来的数量
+//3. 替换 ===> 把前端给的值拿过来, 把原来数量替换掉
+//修改当前用户购物车商品数量
+router.post('/api/updateNumCart', function(req, res, next) {
+	let token = req.headers.token
+	let phone = jwt_decode(token)
+	//商品id
+	let goodsId = req.body.goodsId
+	//用户输入的商品数量
+	let num = req.body.num
+	connection.query(`select * from user where phone = ${phone.name}`, function(error, results, fields) {
+		//当前用户id
+		let userId = results[0].id
+		connection.query(`select * from goods_cart where uId = ${userId} and goods_id = ${goodsId}`,
+			function(err, result) {
+				//数据中当前的数量
+				let goods_num = result[0].num
+				//当前的id号
+				let id = result[0].id
+				//修改[替换]
+				connection.query(
+					`update goods_cart set num = replace(num,${goods_num},${num}) where id = ${id}`,
+					function(e, r) {
+						res.json({
+							data: {
+								success: true
+							}
+						})
+					})
+			})
+	})
+})
+
+//获取当前用户购物车列表
+router.post('/api/selectCart', function(req, res, next) {
+	let token = req.headers.token
+	let phone = jwt_decode(token)
+	connection.query(`select * from user where phone = ${phone.name}`, function(error, results, fields) {
+		//当前用户id
+		let userId = results[0].id
+		console.log(userId)
+		connection.query(`select * from goods_cart where uId = ${userId}`, function(err, result) {
+			res.json({
+				data: result
+			})
+		})
+	})
+})
+
+
+
+
 //当前用户修改收货地址
 router.post('/api/updateAddress', function(req, res, next) {
 	let token = req.headers.token

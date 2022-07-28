@@ -67,7 +67,7 @@
 	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
 	import NumberBox from '@/components/uni-number-box/uni-number-box.vue'
 	import Tabbar from '@/components/common/Tabbar.vue'
-
+	import $http from "@/common/api/request.js"
 	import {
 		mapState,
 		mapActions,
@@ -80,6 +80,9 @@
 				rightBtn: false,
 			}
 		},
+		onLoad() {
+			this.getData()
+		},
 		computed: {
 			...mapState({
 				list: state => state.car.list
@@ -88,7 +91,21 @@
 		},
 		methods: {
 			...mapActions(['checkedAllFn', 'delgoodsFn']),
-			...mapMutations(['selectedItem']),
+			...mapMutations(['selectedItem', 'initGetData']),
+			getData() {
+				$http.request({
+					url: "/api/selectCart",
+					method: "POST",
+
+				}).then((res) => {
+					this.initGetData(res)
+				}).catch(() => {
+					uni.showToast({
+						title: '请求失败',
+						icon: 'none'
+					})
+				})
+			},
 			// 全选
 			changeBtn(e) {
 				this.rightBtn = !this.rightBtn
