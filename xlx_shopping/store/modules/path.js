@@ -19,7 +19,7 @@ export default {
 	},
 	getter: {
 		defaultPath(state) {
-			return state.list.filter(v => v.isDefault)
+			return state.list.filter(v => v.isDefault == 1)
 		}
 	},
 	mutations: {
@@ -30,7 +30,7 @@ export default {
 		removePath(state) {
 			state.list.forEach(v => {
 				if (v.isDefault) {
-					v.isDefault = false
+					v.isDefault = 0
 				}
 			})
 		},

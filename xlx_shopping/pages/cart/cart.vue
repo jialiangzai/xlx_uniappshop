@@ -98,6 +98,9 @@
 				$http.request({
 					url: "/api/selectCart",
 					method: "POST",
+					header: {
+						token: true
+					}
 
 				}).then((res) => {
 					this.initGetData(res)

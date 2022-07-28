@@ -47,6 +47,8 @@
 		mapGetters,
 		mapState
 	} from 'vuex'
+	import $http from "@/common/api/request.js"
+
 	export default {
 		data() {
 			return {
@@ -71,7 +73,21 @@
 			// if (this.defaultPath.length) {
 			// 	this.path = this.defaultPath[0];
 			// }
+			$http.request({
+				url: "/api/selectCart",
+				method: "POST",
+				header: {
+					token: true
+				}
 
+			}).then((res) => {
+				this.initGetData(res)
+			}).catch(() => {
+				uni.showToast({
+					title: '请求失败',
+					icon: 'none'
+				})
+			})
 			//如果出发自定义事件，on去接受值
 			uni.$on("selectPathItem", (res) => {
 				this.path = res;
@@ -94,6 +110,12 @@
 			},
 			//确认支付
 			goPayment() {
+				if (!this.path) {
+					return uni.showToast({
+						title: '请选择收货地址',
+						icon: "none"
+					})
+				}
 				uni.navigateTo({
 					url: '../payment/payment'
 				})
