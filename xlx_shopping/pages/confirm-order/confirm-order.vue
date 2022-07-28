@@ -117,7 +117,7 @@
 					})
 				}
 				uni.navigateTo({
-					url: '../payment/payment'
+					url: `../payment/payment?details=${JSON.stringify({price:this.totalCount.pproce})}`
 				})
 			}
 		}

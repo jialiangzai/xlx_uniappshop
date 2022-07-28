@@ -4,36 +4,40 @@
 		<uniNavBar title='确认支付' left-text='关闭' fixed='true' status-bar='true' @clickLeft='goBack'></uniNavBar>
 
 		<view class='pay-main'>
-			<label for="">
-				<view class="pay-item">
-					<image class='pay-img' src='../../static/img/zfb.png' mode=""></image>
-					<view>
-						<view>支付宝支付</view>
-						<view class='pay-txt'>推荐支付宝用户使用</view>
+			<radio-group name="">
+
+				<label for="">
+					<view class="pay-item">
+						<image class='pay-img' src='../../static/img/zfb.png' mode=""></image>
+						<view>
+							<view>支付宝支付</view>
+							<view class='pay-txt'>推荐支付宝用户使用</view>
+						</view>
+						<label class="radio">
+							<radio value="" color='#FF3333' /><text></text>
+						</label>
 					</view>
-					<label class="radio">
-						<radio value="" color='#FF3333' /><text></text>
-					</label>
-				</view>
-			</label>
-			<label for="">
-				<view class="pay-item">
-					<image class='pay-img' src="../../static/img/wxf.png" mode=""></image>
-					<view>
-						<view>微信支付</view>
-						<view class='pay-txt'>推荐微信用户使用</view>
+				</label>
+				<label for="">
+					<view class="pay-item">
+						<image class='pay-img' src="../../static/img/wxf.png" mode=""></image>
+						<view>
+							<view>微信支付</view>
+							<view class='pay-txt'>推荐微信用户使用</view>
+						</view>
+						<label class="radio">
+							<radio value="" color='#FF3333' /><text></text>
+						</label>
 					</view>
-					<label class="radio">
-						<radio value="" color='#FF3333' /><text></text>
-					</label>
-				</view>
-			</label>
+				</label>
+
+			</radio-group>
 		</view>
 		<!--去支付-->
 		<view class='pay-foot'>
 			<view class='total'>
 				<text class="f-color">合计:</text>
-				<text class='total-price'>¥259.00</text>
+				<text class='total-price'>¥{{details.price}}</text>
 			</view>
 			<view class="go-pay" @tap='goPayment'>去支付</view>
 		</view>
@@ -46,11 +50,16 @@
 	export default {
 		data() {
 			return {
-
+				details: {
+					price: 0
+				}
 			}
 		},
 		components: {
 			uniNavBar
+		},
+		onLoad: (e) => {
+			this.details = JSON.parse(e.details)
 		},
 		methods: {
 			//点击关闭返回上一页
