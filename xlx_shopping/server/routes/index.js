@@ -27,6 +27,43 @@ router.get('/api/ceshi', function(req, res, next) {
 		}
 	})
 });
+//当前用户修改收货地址
+router.post('/api/updateAddress', function(req, res, next) {
+	let token = req.headers.token
+	let phone = jwt_decode(token)
+	let name = req.body.name
+	let tel = req.body.tel
+	let province = req.body.province
+	let city = req.body.city
+	let district = req.body.district
+	let address = req.body.address
+	let isDefault = req.body.isDefault
+	let id = req.body.id
+
+	//获取userId
+	connection.query(`select * from user where phone = ${phone.name}`, function(error, results, fields) {
+		let userId = results[0].id
+		connection.query(`select * from address where userId = ${userId} and isDefault = ${isDefault}`,
+			function(err, result) {
+				let childId = result[0].id
+				connection.query(
+					`update address set isDefault = replace(isDefault,"1","0") where id = ${childId}`,
+					function(e, r) {
+						let updateSql =
+							`update address set name = ?,tel = ?,province = ?,city = ?,district = ?,address = ?,isDefault = ?,userId = ? where id = ${id}`
+						connection.query(updateSql, [name, tel, province, city, district,
+							address, isDefault, userId
+						], function(err, result) {
+							res.send({
+								data: {
+									success: '成功'
+								}
+							})
+						})
+					})
+			})
+	})
+})
 //当前用户新增收货地址
 router.post('/api/addAddress', function(req, res, next) {
 

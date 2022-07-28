@@ -27,7 +27,7 @@
 			<view>设为默认地址</view>
 			<radio-group name="" @change="radioChang">
 				<label class="radio">
-					<radio color="#FF3333" :checked="pramObj.isDefault" /><text></text>
+					<radio color="#FF3333" :checked="pramObj.isDefault == 1 ? true:false" /><text></text>
 				</label>
 			</radio-group>
 
@@ -76,14 +76,37 @@
 		onNavigationBarButtonTap(e) {
 			// console.log(e);
 			if (this.isStatus) {
+
 				// 修改
-				this.updatePathFn({
-					index: this.i,
-					item: this.pramObj
+				$http.request({
+					url: "/api/addAddress",
+					method: "POST",
+					header: {
+						token: true
+					},
+					data: {
+						...this.pramObj
+					}
+				}).then((res) => {
+					this.pramObj.isDefault = this.pramObj.isDefault == true ? 1 : 0
+					this.updatePathFn({
+						index: this.i,
+						item: this.pramObj
+					})
+					uni.showToast({
+						title: '修改成功',
+						icon: 'none'
+					})
+					uni.navigateBack({
+						delta: 1
+					});
+				}).catch(() => {
+					uni.showToast({
+						title: '请求失败',
+						icon: 'none'
+					})
 				})
-				uni.navigateBack({
-					delta: 1
-				});
+
 			} else {
 
 				$http.request({
@@ -127,7 +150,8 @@
 		methods: {
 			...mapActions(['createPathFn', 'updatePathFn']),
 			radioChang() {
-				this.pramObj.isDefault = !this.pramObj.isDefault ? 1 : 0
+				this.pramObj.isDefault = this.pramObj.isDefault == 1 ? true : false
+				this.pramObj.isDefault = !this.pramObj.isDefault
 			},
 			showCityPicker() {
 				this.$refs.mpvueCityPicker.show();
