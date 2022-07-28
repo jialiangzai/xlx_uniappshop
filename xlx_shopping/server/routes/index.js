@@ -1,7 +1,7 @@
 var express = require('express');
 var connection = require('../db/sql');
 var router = express.Router();
-var  user = require('../db/userSql')
+var user = require('../db/userSql')
 // sdk
 var tencentcloud = require("tencentcloud-sdk-nodejs")
 
@@ -18,43 +18,60 @@ router.get('/', function(req, res, next) {
 		title: 'Express'
 	});
 });
+router.get('/api/addUser', function(req, res, next) {
+	let params = {
+		userName: req.body.userName,
+		userCode: req.body.code
+	};
+	if (code == params.userCode) {
+		connection.query(user.insertData(params), function(error, results, fields) {
+			res.send({
+				data: {
+					success: true,
+					msg: '注册成功'
+				}
+			})
+		})
+	}
+
+});
 //发送验证码
 router.post('/api/code', function(req, res, next) {
 	//前端给后端的数据
 	let params = {
-		userName : req.body.userName
+		userName: req.body.userName
 	};
 	// 短信应用 SDK AppID
-	var appid = 1400187558;  // SDK AppID 以1400开头
+	var appid = 1400187558; // SDK AppID 以1400开头
 	// 短信应用 SDK AppKey
 	var appkey = "dc9dc3391896235ddc2325685047edc7";
 	// 需要发送短信的手机号码
 	var phoneNumbers = [params.userName];
 	// 短信模板 ID，需要在短信控制台中申请
-	var templateId = 298000;  // NOTE: 这里的模板ID`7839`只是示例，真实的模板 ID 需要在短信控制台中申请
+	var templateId = 298000; // NOTE: 这里的模板ID`7839`只是示例，真实的模板 ID 需要在短信控制台中申请
 	// 签名
-	var smsSign = "三人行慕课";  // NOTE: 签名参数使用的是`签名内容`，而不是`签名ID`。这里的签名"腾讯云"只是示例，真实的签名需要在短信控制台申请
+	var smsSign = "三人行慕课"; // NOTE: 签名参数使用的是`签名内容`，而不是`签名ID`。这里的签名"腾讯云"只是示例，真实的签名需要在短信控制台申请
 	// 实例化 QcloudSms
 	var qcloudsms = QcloudSms(appid, appkey);
 	// 设置请求回调处理, 这里只是演示，用户需要自定义相应处理回调
 	function callback(err, ress, resData) {
-	  if (err) {
-	      console.log("err: ", err);
-	  } else {
-		  code = ress.req.body.params[0];
-	      res.send({
-			  data:{
-				  success:true,
-				  code:code
-			  }
-		  })
-	  }
+		if (err) {
+			console.log("err: ", err);
+		} else {
+			code = ress.req.body.params[0];
+			res.send({
+				data: {
+					success: true,
+					code: code
+				}
+			})
+		}
 	}
 	var ssender = qcloudsms.SmsSingleSender();
-	var paramss = [  Math.floor( Math.random()*(9999-1000))+1000 ];//发送的验证码
+	var paramss = [Math.floor(Math.random() * (9999 - 1000)) + 1000]; //发送的验证码
 	ssender.sendWithParam("86", phoneNumbers[0], templateId,
-	paramss, smsSign, "", "", callback); 
-	
+		paramss, smsSign, "", "", callback);
+
 })
 // 验证码新版本测试需要签名
 // router.post('/api/codesss', function(req, res, next) {
@@ -94,11 +111,11 @@ router.post('/api/code', function(req, res, next) {
 //       },
 //     },
 //   })
-  
+
 //   /* 请求参数，根据调用的接口和实际情况，可以进一步设置请求参数
 //    * 属性可能是基本类型，也可能引用了另一个数据结构
 //    * 推荐使用IDE进行开发，可以方便的跳转查阅各个接口和数据结构的文档说明 */
-  
+
 //   /* 帮助链接：
 //    * 短信控制台: https://console.cloud.tencent.com/smsv2
 //    * 腾讯云短信小助手: https://cloud.tencent.com/document/product/382/3773#.E6.8A.80.E6.9C.AF.E4.BA.A4.E6.B5.81 */
@@ -134,7 +151,7 @@ router.post('/api/code', function(req, res, next) {
 //     // 请求正常返回，打印response对象
 //     console.log(response)
 //   })
-  
+
 //   /* 当出现以下错误码时，快速解决方案参考
 //    * [FailedOperation.SignatureIncorrectOrUnapproved](https://cloud.tencent.com/document/product/382/9558#.E7.9F.AD.E4.BF.A1.E5.8F.91.E9.80.81.E6.8F.90.E7.A4.BA.EF.BC.9Afailedoperation.signatureincorrectorunapproved-.E5.A6.82.E4.BD.95.E5.A4.84.E7.90.86.EF.BC.9F)
 //    * [FailedOperation.TemplateIncorrectOrUnapproved](https://cloud.tencent.com/document/product/382/9558#.E7.9F.AD.E4.BF.A1.E5.8F.91.E9.80.81.E6.8F.90.E7.A4.BA.EF.BC.9Afailedoperation.templateincorrectorunapproved-.E5.A6.82.E4.BD.95.E5.A4.84.E7.90.86.EF.BC.9F)
@@ -142,74 +159,74 @@ router.post('/api/code', function(req, res, next) {
 //    * [UnsupportedOperation.ContainDomesticAndInternationalPhoneNumber](https://cloud.tencent.com/document/product/382/9558#.E7.9F.AD.E4.BF.A1.E5.8F.91.E9.80.81.E6.8F.90.E7.A4.BA.EF.BC.9Aunsupportedoperation.containdomesticandinternationalphonenumber-.E5.A6.82.E4.BD.95.E5.A4.84.E7.90.86.EF.BC.9F)
 //    * 更多错误，可咨询[腾讯云助手](https://tccc.qcloud.com/web/im/index.html#/chat?webAppId=8fa15978f85cb41f7e2ea36920cb3ae1&title=Sms)
 //   */
-  
+
 // })
 //注册验证手机号是否存在
 router.post('/api/registered', function(req, res, next) {
-	
+
 	//前端给后端的数据
 	let params = {
-		userName : req.body.phone
+		userName: req.body.phone
 	};
 	//查询手机号是否存在
-	connection.query( user.queryUserName( params ) , function (error, results, fields) {
-		if( results.length > 0 ){
+	connection.query(user.queryUserName(params), function(error, results, fields) {
+		if (results.length > 0) {
 			res.send({
-				data:{
-					success:false,
-					msg:"手机号已经存在"
+				data: {
+					success: false,
+					msg: "手机号已经存在"
 				}
 			})
-		}else{
+		} else {
 			res.send({
-				data:{
-					success:true
+				data: {
+					success: true
 				}
 			})
 		}
 	})
-	
+
 })
 //用户登录
 router.post('/api/login', function(req, res, next) {
-	
+
 	//前端给后端的数据
 	let params = {
-		userName : req.body.userName,
-		userPwd  : req.body.userPwd
+		userName: req.body.userName,
+		userPwd: req.body.userPwd
 	}
-  console.log(params);
+	console.log(params);
 	//查询用户名或者手机号存在不存在
-	 connection.query( user.queryUserName( params ) , function (error, results, fields) {
-     console.log(results);
-		if( results.length > 0 ){
-			 connection.query( user.queryUserPwd( params ) , function (err, result) {
-				 if(  result.length > 0 ){
-					 res.send({
-					 	data:{
-					 		success:true,
-					 		msg:"登录成功",
-							data:result[0]
-					 	}
-					 })
-				 }else{
-					 res.send({
-						data:{
-							success:false,
-							msg:"密码不正确"
+	connection.query(user.queryUserName(params), function(error, results, fields) {
+		console.log(results);
+		if (results.length > 0) {
+			connection.query(user.queryUserPwd(params), function(err, result) {
+				if (result.length > 0) {
+					res.send({
+						data: {
+							success: true,
+							msg: "登录成功",
+							data: result[0]
 						}
-					 })
-				 }
-			 })
-		}else{
+					})
+				} else {
+					res.send({
+						data: {
+							success: false,
+							msg: "密码不正确"
+						}
+					})
+				}
+			})
+		} else {
 			res.send({
-				data:{
-					success:false,
-					msg:"用户名或手机号不存在"
+				data: {
+					success: false,
+					msg: "用户名或手机号不存在"
 				}
 			})
 		}
-	 })
+	})
 });
 
 // 商品分享前提商品详情页

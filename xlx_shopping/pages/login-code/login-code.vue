@@ -6,7 +6,7 @@
 				<view class='login-from'>
 					<view class='login-user'>
 						<text class='user-text'>验证码</text>
-						<input type="text" placeholder="请输入验证码" v-model="userCode"/>
+						<input type="text" placeholder="请输入验证码" v-model="userCode" />
 						<button plain='true' size='mini' :disabled="disabled" @tap='sendCode'> {{codeMsg}} </button>
 					</view>
 				</view>
@@ -18,101 +18,140 @@
 
 <script>
 	import Lines from '@/components/lines/lines.vue'
-  import $http from "@/common/api/request.js"
-  
+	import $http from "@/common/api/request.js"
+
 	export default {
 		data() {
 			return {
 				//倒计时到时间
-				codeNum:60,
+				codeNum: 60,
 				//显示到文本
-				codeMsg:"",
+				codeMsg: "",
 				//按钮是否禁用
-				disabled:false,
+				disabled: false,
 				//用户输入的内容
-				userCode:'',
-        phone:''
+				userCode: '',
+				// code
+				getCode: ''
+				phone: ''
 			}
 		},
-		components:{
+		components: {
 			Lines
 		},
-    onLoad(e) {
-      this.phone = e.phone
-    },
+		onLoad(e) {
+			this.phone = e.phone
+		},
 		onReady() {
 			this.codeMsg = `重新发送${this.codeNum}`;
 			this.sendCode();
 		},
 		methods: {
 			//点击验证码发送
-			sendCode(){
-        $http.request({
-          					url:"/api/code",
-          					method:"POST",
-          					data:{
-          						userName:this.phone,
-          					}
-          				}).then((res)=>{
-          					uni.hideLoading();
-                  
-          					
-          				}).catch(()=>{
-          					uni.showToast({
-          						title:'失败',
-          						icon:'none'
-          					})
-          				})
+			sendCode() {
+				$http.request({
+					url: "/api/code",
+					method: "POST",
+					data: {
+						userName: this.phone,
+					}
+				}).then((res) => {
+					uni.hideLoading();
+					this.getCode = res.code
+
+				}).catch(() => {
+					uni.showToast({
+						title: '失败',
+						icon: 'none'
+					})
+				})
 				this.disabled = true;
-				let timer = setInterval(()=>{
+				let timer = setInterval(() => {
 					--this.codeNum;
 					this.codeMsg = `重新发送${this.codeNum}`;
-				},1000);
-				setTimeout(()=>{
+				}, 1000);
+				setTimeout(() => {
 					clearInterval(timer);
-					this.codeNum=10;
+					this.codeNum = 10;
 					this.disabled = false;
 					this.codeMsg = '重新发送';
-				},60000)
+				}, 60000)
 			},
 			//点击下一步
-			goNextIndex(){
-				uni.reLaunch({
-					url:"../index/index"
-				})
+			goNextIndex() {
+				if (this.userCode != this.getCode) {
+					uni.showToast({
+						title: '验证码错误',
+						icon: 'none'
+					})
+				} else {
+					// 追加一条数据
+					$http.request({
+						url: '/api/addUser',
+						method: 'POST',
+						data: {
+							userName: this.phone,
+							code: this.userCode
+						}
+					}).then(res => {
+						this.getCode = res.code
+						if (res.success) {
+							uni.showToast({
+								title: res.msg,
+								icon: 'none'
+							})
+							uni.redirectTo({
+								url: "../index/index"
+							})
+						}
+					}).catch(() => {
+						uni.showToast({
+							title: '请求失败',
+							icon: 'none'
+						})
+					})
+				}
+				// uni.reLaunch({
+				// 	url: "../index/index"
+				// })
 			}
 		}
 	}
 </script>
 
 <style scoped>
-.login-tel{
-	width: 100vw;
-	height: 100vh;
-}
-.tel-main{
-	padding:0 20rpx;
-}
-.login-from{
-	padding:30rpx 0;
-}
-.login-user{
-	font-size:32rpx;
-	padding:10rpx 0;
-	display: flex;
-	align-items: center;
-	border-bottom:2rpx solid #f7f7f7;
-}
-.user-text{
-	padding-right:10rpx;
-}
-.tel{
-	width:100%;
-	height: 80rpx;
-	line-height: 80rpx;
-	text-align: center;
-	color:#FFFFFF;
-	background-color: #49BDFB;
-	border-radius: 40rpx;
-}
+	.login-tel {
+		width: 100vw;
+		height: 100vh;
+	}
+
+	.tel-main {
+		padding: 0 20rpx;
+	}
+
+	.login-from {
+		padding: 30rpx 0;
+	}
+
+	.login-user {
+		font-size: 32rpx;
+		padding: 10rpx 0;
+		display: flex;
+		align-items: center;
+		border-bottom: 2rpx solid #f7f7f7;
+	}
+
+	.user-text {
+		padding-right: 10rpx;
+	}
+
+	.tel {
+		width: 100%;
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+		color: #FFFFFF;
+		background-color: #49BDFB;
+		border-radius: 40rpx;
+	}
 </style>
