@@ -11,8 +11,14 @@ var User = {
 	},
 	//增加一条用户数据
 	insertData(param) {
+		const jwt = require('jsonwebtoken')
+		let payload = {
+			name: param.userName
+		}
+		let secret = 'dijia'
+		let token = jwt.sign(payload, secret)
 		return 'insert into user (userName,userPwd,phone,imgUrl,nickName,token) values ("","","' + param.userName +
-			'","../../static/img/list1.jpg","默认昵称","")';
+			'","../../static/img/list1.jpg","默认昵称","' + token + '")';
 	}
 }
 
