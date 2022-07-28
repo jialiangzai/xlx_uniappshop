@@ -93,7 +93,7 @@
 		},
 		methods: {
 			...mapActions(['checkedAllFn', 'delgoodsFn']),
-			...mapMutations(['selectedItem', 'initGetData']),
+			...mapMutations(['selectedItem', 'initGetData','initOrder']),
 			getData() {
 				$http.request({
 					url: "/api/selectCart",
@@ -144,9 +144,35 @@
 						icon: 'none'
 					})
 				} else {
-					uni.navigateTo({
-						url: `/pages/confirm-order/confirm-order?detail?=${JSON.stringify(this.selectedList)}`
-					})
+          let newLit = []
+          this.list.forEach(item=>{
+            this.selectedList.filter(v=>{
+              if (item.id == v) {
+                newLit.push(item)
+              }
+            })
+          })
+          $http.request({
+          	url: "/api/addOrder",
+          	method: "POST",
+          	data: {
+          		arr:newLit
+          	}
+          
+          }).then((res) => {
+          if (res.success) {
+            this.initOrder(res.data[0].order_id)
+            uni.navigateTo({
+            	url: `/pages/confirm-order/confirm-order?detail?=${JSON.stringify(this.selectedList)}`
+            })
+          }
+          }).catch(() => {
+          	uni.showToast({
+          		title: '请求失败',
+          		icon: 'none'
+          	})
+          })
+				
 				}
 			}
 		},

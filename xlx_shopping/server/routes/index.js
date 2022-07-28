@@ -4,7 +4,9 @@ var router = express.Router();
 var user = require('../db/userSql')
 // sdk
 var tencentcloud = require("tencentcloud-sdk-nodejs")
-
+//引入支付宝沙箱配置
+const alipaySdk = require('../db/alipay.js');
+const AlipayFormData = require('alipay-sdk/lib/form').default;
 // 导入对应产品模块的client models。
 var smsClient = tencentcloud.sms.v20210111.Client
 var user = require('../db/UserSql.js');
@@ -27,7 +29,42 @@ router.get('/api/ceshi', function(req, res, next) {
 		}
 	})
 });
-
+//支付接口
+router.post('/api/payment', function(req, res, next) {
+    //接收前端给后端的订单号
+    let orderId = req.body.orderId;
+    //总价
+    let price = req.body.price;
+    //商品名称
+    let list = req.body.list.join('');
+    
+    const formData = new AlipayFormData();
+    //调用get方法
+    formData.setMethod('get'),
+    //支付时 的信息
+    formData.addField('bizContent', {
+      outTradeNo: orderId,//订单号
+      productCode: 'FAST_INSTANT_TRADE_PAY',//写死的
+      totalAmount: price,//金额
+      subject: list//商品名称
+    });
+    //支付成功或者失败打开的页面
+    formData.addField('returnUrl', 'http://www.xuexiluxian.cn/');
+    const result = alipaySdk.exec(
+      'alipay.trade.page.pay',
+      {},
+      { formData: formData },
+    );
+    result.then(resp=>{
+        res.send({
+            data:{
+                code:200,
+                success:true,
+                paymentUrl:resp
+            }
+        })
+    })
+})
 //修改订单状态
 router.post('/api/submitOrder', function(req, res, next) {
 	let token = req.headers.token
