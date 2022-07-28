@@ -8,6 +8,7 @@ var tencentcloud = require("tencentcloud-sdk-nodejs")
 // 导入对应产品模块的client models。
 var smsClient = tencentcloud.sms.v20210111.Client
 var user = require('../db/UserSql.js');
+var jwt_decode = require('jwt-decode');
 //验证码
 let code = '';
 //接入短信的sdk
@@ -26,6 +27,21 @@ router.get('/api/ceshi', function(req, res, next) {
 		}
 	})
 });
+//当前用户查询收货地址
+router.post('/api/selectAddress', function(req, res, next) {
+
+	let token = req.headers.token;
+	let phone = jwt_decode(token);
+
+	connection.query(`select * from user where phone = ${phone.name}`, function(error, results, fields) {
+		let id = results[0].id;
+		connection.query(`select * from address where userId = ${id}`, function(err, result, field) {
+			res.send({
+				data: result
+			})
+		})
+	})
+})
 //第三发登录
 router.post('/api/loginother', function(req, res, next) {
 	//前端给后端的数据

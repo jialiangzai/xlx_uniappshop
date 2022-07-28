@@ -17,20 +17,18 @@ var User = {
 	},
 	//增加一条用户数据
 	insertData(param) {
-		let userName = param.userName || param.openid
-		const jwt = require('jsonwebtoken')
+		let userName = param.userName || param.openid.slice(0, 2);
+		const jwt = require('jsonwebtoken');
 		let payload = {
 			name: userName
-		}
-		let secret = 'dijia'
-		let token = jwt.sign(payload, secret)
-		let nickName = param.nickName || '默认昵称'
-		let avatarUrl = param.avatarUrl || '../../static/img/list1.jpg'
-		return 'insert into user (userName,userPwd,phone,imgUrl,nickName,token,provider,openid) values ("","","' +
-			param
-			.userName +
-			'","' + avatarUrl + '","' + nickName + '","' + token + '","' + param.provider + '","' + param.openid +
-			'")';
+		}; //用户名
+		let secret = 'xiaoluxian'; //口令
+		let token = jwt.sign(payload, secret);
+		let nickName = param.nickName || "默认昵称";
+		let avatarUrl = param.avatarUrl || "../../static/img/logo.jpg";
+		return 'insert into user (userName,userPwd,phone,imgUrl,nickName,token,provider,openid) values ("","1234567","' +
+			userName + '","' + avatarUrl + '","' + nickName + '","' + token + '","' + param.provider + '","' + param
+			.openid + '")';
 	}
 }
 
