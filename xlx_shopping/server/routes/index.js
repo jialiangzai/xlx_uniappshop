@@ -26,6 +26,37 @@ router.get('/api/ceshi', function(req, res, next) {
 		}
 	})
 });
+//第三发登录
+router.post('/api/loginother', function(req, res, next) {
+	//前端给后端的数据
+	let params = {
+		provider: req.body.provider, //登录方式
+		openid: req.body.openid, //用户身份id
+		nickName: req.body.nickName, //用户昵称
+		avatarUrl: req.body.avatarUrl //用户头像
+	};
+	//查询数据库中有没有此用户
+	connection.query(user.queryUserName(params), function(error, results, fields) {
+		if (results.length > 0) {
+			//数据库中存在      : 读取
+			connection.query(user.queryUserName(params), function(e, r) {
+				res.send({
+					data: r[0]
+				})
+			})
+		} else {
+			//数据库中[不]存在  : 存储 ==>读取
+			connection.query(user.insertData(params), function(er, result) {
+				connection.query(user.queryUserName(params), function(e, r) {
+					res.send({
+						data: r[0]
+					})
+				})
+			})
+		}
+	})
+
+})
 router.get('/api/addUser', function(req, res, next) {
 	let params = {
 		userName: req.body.userName,

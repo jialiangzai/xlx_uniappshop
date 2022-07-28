@@ -21,6 +21,10 @@
 </template>
 
 <script>
+	import $http from "@/common/api/request.js"
+	import {
+		mapMutations
+	} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -28,19 +32,43 @@
 			}
 		},
 		methods: {
+			...mapMutations(['login']),
 			loginOther(mode) {
 				uni.login({
 					provider: mode,
 					success: (res) => {
 						// console.log(res)
-						let openid = res.authResult.openid
 						uni.getUserInfo({
-							provider: mode,
-							success: (res) => {
-								console.log(res);
-							}
+								provider: mode,
+								success: (res) => {
+									let provider = mode
+									let openid = res.userInfo.openid
+									let nickName = res.userInfo.nickName
+									let avatarUrl = res.userInfo.avatarUrl
+									$http.request({
+										url: "/api/loginOther",
+										method: "POST",
+										data: {
+											provider,
+											openid,
+											nickName,
+											imgUrl,
+											avatarUrl
+										}
+									}).then((res) => {
+
+										this.login(res.data);
+										uni.navigateBack({
+											data: 1
+										})
+									}).catch(() => {
+										uni.showToast({
+											title: 请求失败,
+											icon: "none"
+										})
+									})
+								})
 						})
-					}
 				})
 			}
 		},
