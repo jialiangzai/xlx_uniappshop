@@ -160,32 +160,59 @@
 		methods: {
 			...mapMutations(['addCart']),
 			addCar() {
-
 				try {
-
+					let goods = this.goodsContent
+					let goods_id = goods.id
+					let name = goods.name
+					let imgUrl = goods.imgUrl
+					let pprice = goods.pprice
+					let num = this.num
 					let res = await $http.request({
-						url: '/api/ceshi',
+						url: '/api/addCart',
+						method: 'POST',
+						data: {
+							goods_id,
+							num: this.num
+						},
 						header: {
 							token: true
 						}
 					})
-					console.log(JSON.stringify(res));
+					uni.showToast({
+						title: '添加成功',
+					})
+					this.hidePop()
 				} catch (e) {
 					uni.showToast({
 						title: "请求失败",
 						icon: 'error'
 					})
 				}
+				// try {
 
-				let goods = this.goodsContent
-				// console.log(goods);
-				this.goodsContent['checked'] = false
-				this.goodsContent['num'] = this.num
-				this.addCart(goods)
-				uni.showToast({
-					title: '添加成功',
-				})
-				this.hidePop()
+				// 	let res = await $http.request({
+				// 		url: '/api/ceshi',
+				// 		header: {
+				// 			token: true
+				// 		}
+				// 	})
+				// 	console.log(JSON.stringify(res));
+				// } catch (e) {
+				// 	uni.showToast({
+				// 		title: "请求失败",
+				// 		icon: 'error'
+				// 	})
+				// }
+
+				// let goods = this.goodsContent
+				// // console.log(goods);
+				// this.goodsContent['checked'] = false
+				// this.goodsContent['num'] = this.num
+				// this.addCart(goods)
+				// uni.showToast({
+				// 	title: '添加成功',
+				// })
+				// this.hidePop()
 			},
 			goShopCar() {
 				uni.navigateTo({
