@@ -19,7 +19,9 @@
 <script>
 	import Lines from '@/components/lines/lines.vue'
 	import $http from "@/common/api/request.js"
-
+	import {
+		mapMutations
+	} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -47,6 +49,7 @@
 			this.sendCode();
 		},
 		methods: {
+			...mapMutations(['login']),
 			//点击验证码发送
 			sendCode() {
 				$http.request({
@@ -100,6 +103,7 @@
 								title: res.msg,
 								icon: 'none'
 							})
+							this.login(res.data);
 							uni.redirectTo({
 								url: "../index/index"
 							})

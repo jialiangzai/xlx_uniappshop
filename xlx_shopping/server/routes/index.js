@@ -33,12 +33,16 @@ router.get('/api/addUser', function(req, res, next) {
 	};
 	if (code == params.userCode) {
 		connection.query(user.insertData(params), function(error, results, fields) {
-			res.send({
-				data: {
-					success: true,
-					msg: '注册成功'
-				}
+			connection.query(user.queryUserName(params), function(error, results, fields) {
+				res.send({
+					data: {
+						success: true,
+						msg: '注册成功',
+						data: results[0]
+					}
+				})
 			})
+
 		})
 	}
 
