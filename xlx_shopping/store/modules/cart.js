@@ -1,3 +1,5 @@
+import $http from "@/common/api/request.js"
+
 export default {
 	state: () => ({
 		list: [{
@@ -147,8 +149,33 @@ export default {
 		},
 		// 删除
 		delgoodsFn({
-			commit
+			commit,
+			state
 		}) {
+
+			uni.showModal({
+				content: '确认要删除吗?',
+				success: () => {
+					$http.request({
+						url: "/api/deleteCart",
+						method: "POST",
+						header: {
+							token: true
+						},
+						data: {
+							goodsId: state.selectedList
+						}
+					}).then((res) => {
+						this.initGetData(res)
+					}).catch(() => {
+						uni.showToast({
+							title: '请求失败',
+							icon: 'none'
+						})
+					})
+				}
+			})
+
 			commit('delgoods')
 			uni.showToast({
 				title: '删除成功',
