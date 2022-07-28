@@ -86,7 +86,8 @@
 		},
 		computed: {
 			...mapState({
-				list: state => state.car.list
+				list: state => state.car.list,
+				selectedList: state => state.car.selectedList
 			}),
 			...mapGetters(['checkedAll', 'totalCount'])
 		},
@@ -133,9 +134,17 @@
 
 			},
 			goConfirmOrder() {
-				uni.navigateTo({
-					url: '/pages/confirm-order/confirm-order'
-				})
+				// 结算订单处理
+				if (this.selectedList.length === 0) {
+					uni.showToast({
+						title: '请至少选一件商品',
+						icon: 'none'
+					})
+				} else {
+					uni.navigateTo({
+						url: `/pages/confirm-order/confirm-order?detail?=${JSON.stringify(this.selectedList)}`
+					})
+				}
 			}
 		},
 		components: {

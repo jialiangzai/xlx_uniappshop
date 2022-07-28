@@ -19,34 +19,22 @@
 		</view>
 		<!--商品-->
 		<view class='goods-list'>
-			<view class='goods-content bg-active-color'>
+			<view class='goods-content bg-active-color' v-for="(item,index) in goodsList " :key="index">
 				<image class='goods-img' src='../../static/img/Children3.jpg' mode=""></image>
 				<view class='goods-text'>
-					<view class='goods-name'>商品名称</view>
+					<view class='goods-name'>{{item.name}}</view>
 					<view class='goods-size f-color'>颜色分类：黑色</view>
 					<view class='f-active-color' style='font-size:24rpx'>7天无理由</view>
 				</view>
 				<view>
-					<view>¥299.00</view>
-					<view class='f-color'>*1</view>
-				</view>
-			</view>
-			<view class='goods-content bg-active-color'>
-				<image class='goods-img' src='../../static/img/Children3.jpg' mode=""></image>
-				<view class='goods-text'>
-					<view class='goods-name'>商品名称</view>
-					<view class='goods-size f-color'>颜色分类：黑色</view>
-					<view class='f-active-color' style='font-size:24rpx'>7天无理由</view>
-				</view>
-				<view>
-					<view>¥299.00</view>
-					<view class='f-color'>*1</view>
+					<view>¥{{item.pprice}}</view>
+					<view class='f-color'>*{{item.num}}</view>
 				</view>
 			</view>
 		</view>
 		<!--底部 : 提交订单-->
 		<view class='order-foot'>
-			<view class='total-price'>合计：<text class='f-active-color'>¥3999.00</text></view>
+			<view class='total-price'>合计：<text class='f-active-color'>¥{{totalCount.pprice}}</text></view>
 			<view class="confirm" @tap='goPayment'>提交订单</view>
 		</view>
 
@@ -56,18 +44,29 @@
 <script>
 	import Lines from "@/components/lines/lines.vue"
 	import {
-		mapGetters
+		mapGetters,
+		mapState
 	} from 'vuex'
 	export default {
 		data() {
 			return {
-				path: false
+				path: false,
 			}
 		},
 		computed: {
-			...mapGetters(['defaultPath'])
+			...mapGetters(['defaultPath', 'totalCount']),
+			...mapState({
+				list: state => state.car.list
+			}),
+			// 筛选id商品生订单
+			goodsList() {
+				return this.item.map(id => {
+					return this.list.find(v => v.id == id)
+				})
+			}
 		},
-		onLoad() {
+		onLoad(e) {
+			this.item = JSON.parse(e.detail)
 			//如果有默认地址的一个赋值
 			// if (this.defaultPath.length) {
 			// 	this.path = this.defaultPath[0];
