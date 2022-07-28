@@ -22,7 +22,8 @@
 								<view>*{{item.num}}</view>
 							</template>
 							<template v-else>
-								<NumberBox :value="item.num" :min="1" @change="changNumber($event,index)"></NumberBox>
+								<NumberBox :value="item.num" :min="1" @change="changNumber($event,index,item)">
+								</NumberBox>
 							</template>
 						</view>
 					</view>
@@ -111,9 +112,25 @@
 				this.rightBtn = !this.rightBtn
 			},
 			// 编辑状态下的数字
-			changNumber(v, i) {
+			changNumber(v, i, item) {
+				$http.request({
+					url: "/api/updateNumCart",
+					method: "POST",
+					data: {
+						goodsId: item.goods_id,
+						num: v
+					}
+
+				}).then((res) => {
+					this.list[i].num = v
+				}).catch(() => {
+					uni.showToast({
+						title: '请求失败',
+						icon: 'none'
+					})
+				})
 				// console.log(v, i);
-				this.list[i].num = v
+
 			},
 			goConfirmOrder() {
 				uni.navigateTo({
