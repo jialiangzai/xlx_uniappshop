@@ -18,6 +18,14 @@ router.get('/', function(req, res, next) {
 		title: 'Express'
 	});
 });
+/* GET home page. */
+router.get('/api/ceshi', function(req, res, next) {
+	res.send({
+		data: {
+			a: 1
+		}
+	})
+});
 router.get('/api/addUser', function(req, res, next) {
 	let params = {
 		userName: req.body.userName,

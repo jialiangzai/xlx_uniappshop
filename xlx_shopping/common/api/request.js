@@ -1,3 +1,4 @@
+import store from "@/store/index.js";
 export default {
 	common: {
 		baseurl: "http://172.16.6.184:8088",
@@ -20,6 +21,18 @@ export default {
 		options.header = options.header || this.common.header
 		options.method = options.method || this.common.method
 		options.dataType = options.dataType || this.common.dataType
+		if (options.header.token) {
+			options.header.token = store.state.use.token
+			if (!options.header.token) {
+				uni.showToast({
+					title: '请先登录',
+					icon: 'none'
+				})
+				return uni.navigateTo({
+					url: '/page/login/login'
+				})
+			}
+		}
 		return new Promise((resolve, rej) => {
 			uni.request({
 				...options,

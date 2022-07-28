@@ -160,6 +160,23 @@
 		methods: {
 			...mapMutations(['addCart']),
 			addCar() {
+
+				try {
+
+					let res = await $http.request({
+						url: '/api/ceshi',
+						header: {
+							token: true
+						}
+					})
+					console.log(JSON.stringify(res));
+				} catch (e) {
+					uni.showToast({
+						title: "请求失败",
+						icon: 'error'
+					})
+				}
+
 				let goods = this.goodsContent
 				// console.log(goods);
 				this.goodsContent['checked'] = false
