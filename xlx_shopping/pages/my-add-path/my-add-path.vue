@@ -13,14 +13,14 @@
 
 		<view class='path-item'>
 			<view>所在地址</view>
-			<view @tap='showCityPicker'>{{pramObj.city}} > </view>
+			<view @tap='showCityPicker'>{{pathCity}} > </view>
 			<mpvue-city-picker ref="mpvueCityPicker" :pickerValueDefault="pickerValueDefault" @onConfirm="onConfirm">
 			</mpvue-city-picker>
 		</view>
 
 		<view class='path-item'>
 			<view>详细地址</view>
-			<input type="text" value="" placeholder="5到60个字符" v-model="pramObj.details" />
+			<input type="text" value="" placeholder="5到60个字符" v-model="pramObj.adress" />
 		</view>
 
 		<view class='path-item'>
@@ -38,6 +38,7 @@
 
 <script>
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
+	import $http from "@/common/api/request.js"
 	import {
 		mapActions
 	} from "vuex"
@@ -49,9 +50,12 @@
 				pramObj: {
 					name: '',
 					tel: '',
+					province: '',
 					city: '',
+					district: '',
 					details: '',
-					isDefault: false
+					isDefault: false,
+					adress: ''
 				},
 				i: -1,
 				// 是否修改状态
@@ -81,27 +85,58 @@
 					delta: 1
 				});
 			} else {
+
+				$http.request({
+					url: "/api/addAddress",
+					method: "POST",
+					header: {
+						token: true
+					},
+					data: {
+						...this.pramObj
+					}
+				}).then((res) => {
+					this.createPathFn(this.pramObj)
+					// 在C页面内 navigateBack，将返回A页面
+					uni.navigateBack({
+						delta: 1
+					});
+				}).catch(() => {
+					uni.showToast({
+						title: '请求失败',
+						icon: 'none'
+					})
+				})
 				// 新增
-				this.createPathFn(this.pramObj)
-				// 在C页面内 navigateBack，将返回A页面
-				uni.navigateBack({
-					delta: 1
-				});
+
 			}
 
 		},
 		components: {
 			mpvueCityPicker
 		},
+		computed: {
+			pathCity() {
+				if (this.pramObj.province) {
+					return `${this.pramObj.province}-${this.pramObj.city}-${this.pramObj.district}`
+				} else {
+					return '请选择'
+				}
+			}
+		},
 		methods: {
 			...mapActions(['createPathFn', 'updatePathFn']),
 			radioChang() {
-				this.pramObj.isDefault = !this.pramObj.isDefault
+				this.pramObj.isDefault = !this.pramObj.isDefault ? 1 : 0
 			},
 			showCityPicker() {
 				this.$refs.mpvueCityPicker.show();
 			},
 			onConfirm(e) {
+				let arr = e.label.split('-')
+				this.pramObj.province = arr[0]
+				this.pramObj.city = arr[1]
+				this.pramObj.district = arr[2]
 				this.pramObj.city = e.label;
 			}
 		}

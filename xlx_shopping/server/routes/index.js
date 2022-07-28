@@ -27,6 +27,34 @@ router.get('/api/ceshi', function(req, res, next) {
 		}
 	})
 });
+//当前用户新增收货地址
+router.post('/api/addAddress', function(req, res, next) {
+
+	let token = req.headers.token
+	let phone = jwt_decode(token)
+	let name = req.body.name
+	let tel = req.body.tel
+	let province = req.body.province
+	let city = req.body.city
+	let district = req.body.district
+	let address = req.body.address
+	let isDefault = req.body.isDefault
+
+	connection.query(`select * from user where phone = ${phone.name}`, function(error, results, fields) {
+		let id = results[0].id
+		let sqlInert =
+			'insert into address (name,tel,province,city,district,address,isDefault,userId) values ("' +
+			name + '","' + tel + '","' + province + '","' + city + '","' + district + '","' + address +
+			'","' + isDefault + '","' + id + '")'
+		connection.query(sqlInert, function(err, result, field) {
+			res.send({
+				data: {
+					success: "成功"
+				}
+			})
+		})
+	})
+})
 //当前用户查询收货地址
 router.post('/api/selectAddress', function(req, res, next) {
 
